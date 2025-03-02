@@ -395,26 +395,25 @@ module.exports = {
 	},
 	genesisCoinbaseOutputAddressScripthash:"97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9",
 	exchangeRateData:{
-		jsonUrl:"https://api.coindesk.com/v1/bpi/currentprice.json",
-		responseBodySelectorFunction:function(responseBody) {
-			//console.log("Exchange Rate Response: " + JSON.stringify(responseBody));
-
+		jsonUrl:"https://api.coingecko.com/api/v3/simple/price?ids=litecoin&vs_currencies=usd,gbp,eur",
+		responseBodySelectorFunction: function(responseBody) {
+			// console.log("Exchange Rate Response: " + JSON.stringify(responseBody));
+		
 			var exchangedCurrencies = ["USD", "GBP", "EUR"];
-
-			if (responseBody.bpi) {
-				var exchangeRates = {};
-
+			var exchangeRates = {};
+		
+			if (responseBody.litecoin) {
 				for (var i = 0; i < exchangedCurrencies.length; i++) {
-					if (responseBody.bpi[exchangedCurrencies[i]]) {
-						exchangeRates[exchangedCurrencies[i].toLowerCase()] = responseBody.bpi[exchangedCurrencies[i]].rate_float;
+					var currency = exchangedCurrencies[i].toLowerCase();
+					if (responseBody.litecoin[currency] !== undefined) {
+						exchangeRates[currency] = responseBody.litecoin[currency];
 					}
 				}
-
 				return exchangeRates;
 			}
-			
+		
 			return null;
-		}
+		}		
 	},
 	goldExchangeRateData:{
 		jsonUrl:"https://forex-data-feed.swissquote.com/public-quotes/bboquotes/instrument/XAU/USD",

@@ -463,7 +463,7 @@ async function onRpcConnectionVerified(getnetworkinfo, getblockchaininfo) {
 		global.pruneHeight = getblockchaininfo.pruneheight;
 	}
 
-	var litecoinCoreVersionRegex = /^.*\/Satoshi\:(.*)\/.*$/;
+	var litecoinCoreVersionRegex = /^.*\/LitecoinCore\:(.*)\/.*$/;
 
 	var match = litecoinCoreVersionRegex.exec(getnetworkinfo.subversion);
 	if (match) {
