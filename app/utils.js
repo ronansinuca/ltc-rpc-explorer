@@ -1316,7 +1316,7 @@ const xpubPrefixes = new Map([
 ]);
 
 const bip32TestnetNetwork = {
-	messagePrefix: '\x18Bitcoin Signed Message:\n',
+	messagePrefix: '\x18Bitcoin Signed Message:\n', // TODO: update for Litecoin
 	bech32: 'tb',
 	bip32: {
 		public: 0x043587cf,
