@@ -6,12 +6,12 @@
 	apt install docker.io
 	
 	# get source, npm install
-	git clone https://github.com/janoside/btc-rpc-explorer.git
-	cd btc-rpc-explorer
+	git clone https://github.com/tech1k/ltc-rpc-explorer.git
+	cd ltc-rpc-explorer
 	
 	# build docker image
-	docker build -t btc-rpc-explorer .
+	docker build -t ltc-rpc-explorer .
 
-	# run docker image: detached mode, share port 3002, sharing config dir, from the "btc-rpc-explorer" image made above
-	docker run --name=btc-rpc-explorer -d -v /host-os/env-dir:/container/env-dir --network="host" btc-rpc-explorer
+	# run docker image: detached mode, share port 3002, sharing config dir, from the "ltc-rpc-explorer" image made above
+	docker run --name=ltc-rpc-explorer -d -v /host-os/env-dir:/container/env-dir --network="host" ltc-rpc-explorer
 	

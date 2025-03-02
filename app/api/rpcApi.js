@@ -100,7 +100,7 @@ function getPeerInfo() {
 }
 
 function getBlockTemplate() {
-	return getRpcDataWithParams({method:"getblocktemplate", parameters:[{"rules": ["segwit"]}]});
+	return getRpcDataWithParams({method:"getblocktemplate", parameters:[{"rules": ["mweb", "segwit"]}]});
 }
 
 function getAllMempoolTxids() {

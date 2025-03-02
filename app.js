@@ -385,7 +385,7 @@ function loadMiningPoolConfigs() {
 
 async function getSourcecodeProjectMetadata() {
 	var options = {
-		url: "https://api.github.com/repos/janoside/ltc-rpc-explorer",
+		url: "https://api.github.com/repos/tech1k/ltc-rpc-explorer",
 		headers: {
 			'User-Agent': 'request'
 		}

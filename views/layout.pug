@@ -253,15 +253,15 @@ html(lang="en")
 							h6 Project
 
 							.ms-2
-								a.footer-link(href="https://github.com/janoside/btc-rpc-explorer") github.com/janoside/btc-rpc-explorer
+								a.footer-link(href="https://github.com/tech1k/ltc-rpc-explorer") github.com/tech1k/ltc-rpc-explorer
 									
 								if (global.sourcecodeProjectMetadata)
 									div.mt-2
-										a.btn.btn-primary.btn-sm.me-3.mb-1.text-decoration-none(href="https://github.com/janoside/ltc-rpc-explorer")
+										a.btn.btn-primary.btn-sm.me-3.mb-1.text-decoration-none(href="https://github.com/tech1k/ltc-rpc-explorer")
 											i.bi-star-fill.text-warning.me-2
 											span.badge.bg-white.text-dark #{global.sourcecodeProjectMetadata.stargazers_count}
 
-										a.btn.btn-primary.btn-sm.me-3.mb-1.text-decoration-none(href="https://github.com/janoside/ltc-rpc-explorer/fork")
+										a.btn.btn-primary.btn-sm.me-3.mb-1.text-decoration-none(href="https://github.com/tech1k/ltc-rpc-explorer/fork")
 											i.bi-bezier2.me-2
 											span.badge.bg-white.text-dark #{global.sourcecodeProjectMetadata.forks_count}
 
@@ -274,7 +274,7 @@ html(lang="en")
 								if (sourcecodeVersion)
 									br
 									span commit: 
-										a.footer-link(href=`https://github.com/janoside/ltc-rpc-explorer/commit/${sourcecodeVersion}`) #{sourcecodeVersion}
+										a.footer-link(href=`https://github.com/tech1k/ltc-rpc-explorer/commit/${sourcecodeVersion}`) #{sourcecodeVersion}
 								
 								br
 								span released: #{sourcecodeDate}
@@ -313,7 +313,7 @@ html(lang="en")
 							.ms-2
 								span(style="font-size: 1.5rem;")
 									if (global.sourcecodeProjectMetadata)
-										a.text-white.mb-1.me-3(href="https://github.com/janoside/btc-rpc-explorer", title="View source code", data-bs-toggle="tooltip")
+										a.text-white.mb-1.me-3(href="https://github.com/tech1k/btc-rpc-explorer", title="View source code", data-bs-toggle="tooltip")
 											i.bi-git
 
 									a.text-danger.mb-1.me-3(href="https://donate.bitcoinexplorer.org", target="_blank", title="Support this project with a donation", data-bs-toggle="tooltip")
