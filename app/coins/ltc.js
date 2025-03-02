@@ -81,8 +81,8 @@ module.exports = {
 		"regtest":"Regtest Explorer",
 	},
 	demoSiteUrlsByNetwork: {
-		"main": "https://bitcoinexplorer.org",
-		"test": "https://testnet.bitcoinexplorer.org",
+		"main": "https://litecoinexplorer.org",
+		"test": "https://testnet.litecoinexplorer.org",
 	},
 	knownTransactionsByNetwork: {
 		main: "f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16",
