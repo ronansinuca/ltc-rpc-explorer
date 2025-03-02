@@ -268,7 +268,7 @@ if (exchangeRates)
 			- smartFeeEstimateStrings.push(smartFeeEstimates[144]);
 			- smartFeeEstimateTimes.push('day');
 
-	+summaryRow((mempoolInfo == undefined ? 0 : 1) + (smartFeeEstimateStrings.length > 0 ? 1 : 0) + ((mempoolInfo && global.activeBlockchain != "signet") ? 1 : 0))
+	+summaryRow((mempoolInfo == undefined ? 0 : 1) + (smartFeeEstimateStrings.length > 0 ? 1 : 0))
 		if (mempoolInfo)
 			- const thresholds_txCount = {warning: 7000, danger: 11000}
 			- const colorClass_txCount = (mempoolInfo.size > thresholds_txCount.danger) ? "text-danger" : (mempoolInfo.size > thresholds_txCount.warning ? "text-warning" : "text-success")
@@ -324,7 +324,7 @@ if (exchangeRates)
 					span.ms-1(class=colorClass_totalFees)
 						+valueDisplay(mempoolInfo.total_fee, {hideLessSignificantDigits:true})
 
-		if (mempoolInfo && global.activeBlockchain != "signet")
+		if (mempoolInfo)
 			+summaryRow
 				+summaryItem("Next Block", "A prediction for what transactions will be included in the next block, yet to be mined. Built from \"getblocktemplate\".", null, null, "icon:bi-minecart-loaded", "./next-block", "View next block details")
 

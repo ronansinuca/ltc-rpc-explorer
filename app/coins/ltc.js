@@ -65,36 +65,30 @@ module.exports = {
 	logoUrlsByNetwork:{
 		"main":"./img/network-mainnet/logo.svg",
 		"test":"./img/network-testnet/logo.svg",
-		"regtest":"./img/network-regtest/logo.svg",
-		"signet":"./img/network-signet/logo.svg"
+		"regtest":"./img/network-regtest/logo.svg"
 	},
 	coinIconUrlsByNetwork:{
 		"main":"./img/network-mainnet/coin-icon.svg",
 		"test":"./img/network-testnet/coin-icon.svg",
-		"signet":"./img/network-signet/coin-icon.svg",
 		"regtest":"./img/network-regtest/coin-icon.svg"
 	},
 	coinColorsByNetwork: {
 		"main": "#F7931A",
 		"test": "#1daf00",
-		"signet": "#af008c",
 		"regtest": "#777"
 	},
 	siteTitlesByNetwork: {
 		"main":"Litecoin Explorer",
 		"test":"Testnet Explorer",
 		"regtest":"Regtest Explorer",
-		"signet":"Signet Explorer",
 	},
 	demoSiteUrlsByNetwork: {
 		"main": "https://bitcoinexplorer.org",
 		"test": "https://testnet.bitcoinexplorer.org",
-		"signet": "https://signet.bitcoinexplorer.org",
 	},
 	knownTransactionsByNetwork: {
 		main: "f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16",
 		test: "22e7e860660f368b5c653c272b0445a0625d19fdec02fc158ef9800a5c3a07e8",
-		signet: "39332e10af6fe491e8ae4ba1e2dd674698fedf8aa3c8c42bf71572debc1bb5b9"
 	},
 	miningPoolsConfigUrls:[
 		"https://raw.githubusercontent.com/btc21/Bitcoin-Known-Miners/master/miners.json",
@@ -110,8 +104,7 @@ module.exports = {
 	maxSupplyByNetwork: {
 		"main": new Decimal(20999817.31308491), // ref: https://bitcoin.stackexchange.com/a/38998
 		"test": new Decimal(21000000),
-		"regtest": new Decimal(21000000),
-		"signet": new Decimal(21000000)
+		"regtest": new Decimal(21000000)
 	},
 	targetBlockTimeSeconds: 600,
 	targetBlockTimeMinutes: 10,
@@ -124,22 +117,19 @@ module.exports = {
 	halvingBlockIntervalsByNetwork: {
 		"main": 210000,
 		"test": 210000,
-		"regtest": 150,
-		"signet": 210000
+		"regtest": 150
 	},
 
 	terminalHalvingCountByNetwork: {
 		"main": 32,
 		"test": 32,
-		"regtest": 32,
-		"signet": 32
+		"regtest": 32
 	},
 
 	// used for supply estimates that don't need full gettxoutset accuracy
 	coinSupplyCheckpointsByNetwork: {
 		"main": [ 675046, new Decimal(18656332.38) ],
 		"test": [ 1940614, new Decimal(20963051.112) ],
-		"signet": [ 29472, new Decimal(1473600) ],
 		"regtest": [ 0, new Decimal(0) ]
 	},
 
@@ -168,13 +158,11 @@ module.exports = {
 		"main":	"000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
 		"test":	"000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943",
 		"regtest": "0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206",
-		"signet":  "00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6", 
 	},
 	genesisCoinbaseTransactionIdsByNetwork: {
 		"main":	"4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
 		"test":	"4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
-		"regtest": "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
-		"signet":  "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+		"regtest": "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
 	},
 	genesisCoinbaseTransactionsByNetwork:{
 		"main": {
@@ -273,36 +261,6 @@ module.exports = {
 			"blockhash": "0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206",
 			"time": 1296688602,
 			"blocktime": 1296688602
-		},
-		"signet": {
-			"hex": "01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff4d04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73ffffffff0100f2052a01000000434104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac00000000",
-			"txid": "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
-			"hash": "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
-			"version": 1,
-			"size": 204,
-			"vsize": 204,
-			"weight": 816,
-			"locktime": 0,
-			"vin": [
-				{
-					"coinbase": "04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73",
-					"sequence": 4294967295
-				}
-			],
-			"vout": [
-				{
-					"value": 50.00000000,
-					"n": 0,
-					"scriptPubKey": {
-						"asm": "04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f OP_CHECKSIG",
-						"hex": "4104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac",
-						"type": "pubkey"
-					}
-				}
-			],
-			"blockhash": "00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6",
-			"time": 1598918400,
-			"blocktime": 1598918400
 		}
 	},
 	genesisBlockStatsByNetwork:{
@@ -409,43 +367,6 @@ module.exports = {
 			"swtotal_weight": 0,
 			"swtxs": 0,
 			"time": 1296688602,
-			"total_out": 0,
-			"total_size": 0,
-			"total_weight": 0,
-			"totalfee": 0,
-			"txs": 1,
-			"utxo_increase": 1,
-			"utxo_size_inc": 117
-		},
-		"signet": {
-			"avgfee": 0,
-			"avgfeerate": 0,
-			"avgtxsize": 0,
-			"blockhash": "00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6",
-			"feerate_percentiles": [
-				0,
-				0,
-				0,
-				0,
-				0
-			],
-			"height": 0,
-			"ins": 0,
-			"maxfee": 0,
-			"maxfeerate": 0,
-			"maxtxsize": 0,
-			"medianfee": 0,
-			"mediantime": 1598918400,
-			"mediantxsize": 0,
-			"minfee": 0,
-			"minfeerate": 0,
-			"mintxsize": 0,
-			"outs": 1,
-			"subsidy": 5000000000,
-			"swtotal_size": 0,
-			"swtotal_weight": 0,
-			"swtxs": 0,
-			"time": 1598918400,
 			"total_out": 0,
 			"total_size": 0,
 			"total_weight": 0,

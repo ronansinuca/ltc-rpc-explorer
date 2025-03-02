@@ -56,7 +56,7 @@ block content
 
 				+contentSection("Blockchain")
 					+summaryRow(4 + (getblockchaininfo.size_on_disk ? 1 : 0) + (getblockchaininfo.pruned ? 1 : 0))
-						+summaryItem("Chain", "Network name (main, test, signet, regtest)")
+						+summaryItem("Chain", "Network name (main, test, regtest)")
 							if (getblockchaininfo.chain == "main")
 								span.text-success #{getblockchaininfo.chain}
 							else

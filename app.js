@@ -324,14 +324,11 @@ const cdnItems = [
 	[`img/network-mainnet/favicon-32x32.png`, `image/png`, "binary"],
 	[`img/network-testnet/logo.svg`, `image/svg+xml`, "utf8"],
 	[`img/network-testnet/coin-icon.svg`, `image/svg+xml`, "utf8"],
-	[`img/network-signet/logo.svg`, `image/svg+xml`, "utf8"],
-	[`img/network-signet/coin-icon.svg`, `image/svg+xml`, "utf8"],
 	[`img/network-regtest/logo.svg`, `image/svg+xml`, "utf8"],
 	[`img/network-regtest/coin-icon.svg`, `image/svg+xml`, "utf8"],
 
 	[`img/network-mainnet/favicon.ico`, `image/x-icon`, "binary"],
 	[`img/network-testnet/favicon.ico`, `image/x-icon`, "binary"],
-	[`img/network-signet/favicon.ico`, `image/x-icon`, "binary"],
 	[`img/network-regtest/favicon.ico`, `image/x-icon`, "binary"],
 
 	[`font/bootstrap-icons.woff`, `font/woff`, "binary"],

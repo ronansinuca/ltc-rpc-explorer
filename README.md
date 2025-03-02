@@ -18,7 +18,7 @@ Whatever reasons you may have for running a full node (trustlessness, technical 
 
 Live demos:
 
-* [BitcoinExplorer.org](https://bitcoinexplorer.org) / [testnet](https://testnet.bitcoinexplorer.org) / [signet](https://signet.bitcoinexplorer.org)
+* [BitcoinExplorer.org](https://bitcoinexplorer.org) / [testnet](https://testnet.bitcoinexplorer.org)
 
 
 # Features

@@ -87,7 +87,7 @@ block content
 						| Taproot has activated on Bitcoin's mainnet as of block height <a href="./block-height/709632">709,632</a>!
 				
 
-		if (getblockchaininfo.initialblockdownload && !["regtest", "signet"].includes(global.activeBlockchain))
+		if (getblockchaininfo.initialblockdownload && !["regtest"].includes(global.activeBlockchain))
 			div.alert.alert-warning.shadow-sm.border.mb-3
 				div.fw-bold.mb-1 Initial Block Download (IBD) - In Progress...
 
