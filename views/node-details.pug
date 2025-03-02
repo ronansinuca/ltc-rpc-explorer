@@ -68,7 +68,7 @@ block content
 								br
 								small.text-muted (headers: #{getblockchaininfo.headers.toLocaleString()})
 
-						+summaryItem("Difficulty", "Mining difficulty (adjusted every 2016 blocks to maintain the time it takes to process one block at around 10 minutes)")
+						+summaryItem("Difficulty", "Mining difficulty (adjusted every 2016 blocks to maintain the time it takes to process one block at around 2.5 minutes)")
 							- var difficultyData = utils.formatLargeNumber(getblockchaininfo.difficulty, 3);
 							span.border-dotted(title=parseFloat(getblockchaininfo.difficulty).toLocaleString(), data-bs-toggle="tooltip")
 								span #{difficultyData[0]}
