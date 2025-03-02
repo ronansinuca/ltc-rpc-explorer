@@ -1,24 +1,26 @@
-# BTC RPC Explorer
+# LTC RPC Explorer
 
-## Self-Hosted Bitcoin explorer for everyone running [Bitcoin Core](https://github.com/bitcoin/bitcoin).
+## Self-Hosted Litecoin explorer for everyone running [Litecoin Core](https://github.com/litecoin-project/litecoin).
 
-[![npm version][npm-ver-img]][npm-ver-url] [![NPM downloads][npm-dl-alltime-img]][npm-dl-url]
+<!--[![npm version][npm-ver-img]][npm-ver-url] [![NPM downloads][npm-dl-alltime-img]][npm-dl-url]-->
 
 
 ---
 
 
-![homepage](./public/img/screenshots/homepage.png)
+<!--![homepage](./public/img/screenshots/homepage.png)-->
 
 
 
-This is a self-hosted explorer for the Bitcoin blockchain, driven by RPC calls to your own [Bitcoin](https://github.com/bitcoin/bitcoin) node. It is easy to run and can be connected to other tools (like Electrum servers) to achieve a full-featured explorer.
+This is a self-hosted explorer for the Litecoin blockchain, driven by RPC calls to your own [Litecoin](https://github.com/litecoin-project/litecoin) node. It is easy to run and can be connected to other tools (like Electrum servers) to achieve a full-featured explorer.
+
+This explorer was originally developed by [janoside](https://github.com/janoside) for Bitcoin. You can find the original Bitcoin version here: [btc-rpc-explorer](https://github.com/janoside/btc-rpc-explorer) Special thanks to him for creating this fantastic explorer.
 
 Whatever reasons you may have for running a full node (trustlessness, technical curiosity, supporting the network, etc) it's valuable to appreciate the *fullness* of your node. With this explorer, you can explore not just the blockchain database, but also explore all of the functional capabilities of your own node.
 
-Live demos:
+Live demos (coming soon):
 
-* [BitcoinExplorer.org](https://bitcoinexplorer.org) / [testnet](https://testnet.bitcoinexplorer.org)
+<!--* [LitecoinExplorer.org](https://litecoinexplorer.org)-->
 
 
 # Features
@@ -29,7 +31,7 @@ Live demos:
 * JSON REST API
 * See raw JSON content from litecoind used to generate most pages
 * Search by transaction ID, block hash/height, and address
-* Optional transaction history for addresses by querying from Electrum-protocol servers (e.g. Electrs, ElectrumX), blockchain.com, blockchair.com, or blockcypher.com
+* Optional transaction history for addresses by querying from Electrum-protocol servers (e.g. ElectrumX), blockchair.com, or blockcypher.com
 * Mempool summary, with fee, size, and age breakdowns
 * RPC command browser and terminal
 
@@ -43,14 +45,14 @@ See [CHANGELOG.md](/CHANGELOG.md).
 
 ## Prerequisites
 
-1. Install `Bitcoin Core` - [instructions](https://bitcoin.org/en/full-node). Ensure that `Bitcoin Core`'s' RPC server is enabled (`server=1`).
-2. Allow `Bitcoin Core` to synchronize with the Bitcoin network (you *can* use this tool while sychronizing, but some pages may fail).
+1. Install `Litecoin Core` - [instructions](https://litecoin.com/learning-center/how-to-run-your-own-litecoin-node). Ensure that `Litecoin Core`'s' RPC server is enabled (`server=1`).
+2. Allow `Litecoin Core` to synchronize with the Litecoin network (you *can* use this tool while sychronizing, but some pages may fail).
 3. Install Node.js (16+ required, 18+ recommended).
 
 ### Note about pruning and indexing configurations
 
 This tool is designed to work best with full transaction indexing enabled (`txindex=1`) and pruning **disabled**. 
-However, if you're running Bitcoin Core v0.21+ you can run *without* `txindex` enabled and/or *with* `pruning` enabled and this tool will continue to function, but some data will be incomplete or missing. Also note that such Bitcoin Core configurations receive less thorough testing.
+However, if you're running Litecoin Core v0.21+ you can run *without* `txindex` enabled and/or *with* `pruning` enabled and this tool will continue to function, but some data will be incomplete or missing. Also note that such Litecoin Core configurations receive less thorough testing.
 
 In particular, with `pruning` enabled and/or `txindex` disabled, the following functionality is altered:
 
@@ -69,30 +71,20 @@ If you're running on mainnet with the default datadir and port, the default conf
 *Note: npm v7+ is required*
 
 ```bash
-npm install -g btc-rpc-explorer
-btc-rpc-explorer
+npm install -g ltc-rpc-explorer
+ltc-rpc-explorer
 ```
 
 #### Run from source:
 
-1. `git clone https://github.com/janoside/btc-rpc-explorer`
-2. `cd btc-rpc-explorer`
+1. `git clone https://github.com/tech1k/ltc-rpc-explorer`
+2. `cd ltc-rpc-explorer`
 3. `npm install`
 4. `npm start`
 
 
-#### Install via AUR Arch Linux:
 
-###### Note: The below AUR package was created and is maintained by [@dougEfresh](https://github.com/dougEfresh). The details and history of the package can be seen [here](https://aur.archlinux.org/packages/btc-rpc-explorer/).
-
-1. `git clone https://aur.archlinux.org/btc-rpc-explorer.git`
-2. `cd btc-rpc-explorer`
-3. `makepkg -csi`
-4. `systemctl enable --now btc-rpc-explorer`
-
-
-
-After a default installation+startup using any of the above methods, the app can be viewed at [http://127.0.0.1:3002/](http://127.0.0.1:3002/)
+After a default installation+startup using any of the above methods, the app can be viewed at [http://127.0.0.1:3003/](http://127.0.0.1:3003/)
 
 
 ## Configuration
@@ -103,46 +95,46 @@ Configuration options may be set via environment variables or CLI arguments.
 
 To configure with environment variables, you need to create one of the 2 following files and enter values in it:
 
-1. `~/.config/btc-rpc-explorer.env`
-2. `.env` in the working directory for btc-rpc-explorer
+1. `~/.config/ltc-rpc-explorer.env`
+2. `.env` in the working directory for ltc-rpc-explorer
 
 In either case, refer to [.env-sample](.env-sample) for a list of the options and formatting details.
 
 #### Configuration with CLI args
 
-For configuring with CLI arguments, run `btc-rpc-explorer --help` for the full list of options. An example execution is:
+For configuring with CLI arguments, run `ltc-rpc-explorer --help` for the full list of options. An example execution is:
 
 ```bash
-btc-rpc-explorer --port 8080 --litecoind-port 18443 --litecoind-cookie ~/.bitcoin/regtest/.cookie
+ltc-rpc-explorer --port 8080 --litecoind-port 18443 --litecoind-cookie ~/.litecoin/regtest/.cookie
 ```
 
 #### Demo site settings
 
-To match the features visible on the demo site at [BitcoinExplorer.org](https://bitcoinexplorer.org) you'll need to set the following non-default configuration values:
+To match the features visible on the demo site at [LitecoinExplorer.org](https://litecoinexplorer.org) you'll need to set the following non-default configuration values:
 
-    BTCEXP_DEMO=true 		# enables some demo/informational aspects of the site
-    BTCEXP_NO_RATES=false		# enables querying of exchange rate data
-    BTCEXP_SLOW_DEVICE_MODE=false	# enables resource-intensive tasks (UTXO set query, 24hr volume querying) that are inappropriate for "slow" devices
-    BTCEXP_ADDRESS_API=electrum 	# use electrum-protocol servers for address lookups
-    BTCEXP_ELECTRUM_SERVERS=tcp://your-electrum-protocol-server-host:50001		# address(es) for my electrum-protocol server(s)
-    BTCEXP_IPSTACK_APIKEY=your-api-key		# enable peer ip geo-location
-    BTCEXP_MAPBOX_APIKEY=your-api-key		# enable map of peer locations
+    LTCEXP_DEMO=true 		# enables some demo/informational aspects of the site
+    LTCEXP_NO_RATES=false		# enables querying of exchange rate data
+    LTCEXP_SLOW_DEVICE_MODE=false	# enables resource-intensive tasks (UTXO set query, 24hr volume querying) that are inappropriate for "slow" devices
+    LTCEXP_ADDRESS_API=electrum 	# use electrum-protocol servers for address lookups
+    LTCEXP_ELECTRUM_SERVERS=tcp://your-electrum-protocol-server-host:50001		# address(es) for my electrum-protocol server(s)
+    LTCEXP_IPSTACK_APIKEY=your-api-key		# enable peer ip geo-location
+    LTCEXP_MAPBOX_APIKEY=your-api-key		# enable map of peer locations
 
 #### SSO authentication
 
 You can configure SSO authentication similar to what ThunderHub and RTL provide.
-To enable it, make sure `BTCEXP_BASIC_AUTH_PASSWORD` is **not** set and set `BTCEXP_SSO_TOKEN_FILE` to point to a file write-accessible by btc-rpc-explorer.
-Then to access btc-rpc-explorer, your SSO provider needs to read the token from this file and set it in URL parameter `token`.
+To enable it, make sure `LTCEXP_BASIC_AUTH_PASSWORD` is **not** set and set `LTCEXP_SSO_TOKEN_FILE` to point to a file write-accessible by ltc-rpc-explorer.
+Then to access ltc-rpc-explorer, your SSO provider needs to read the token from this file and set it in URL parameter `token`.
 For security reasons the token changes with each login, so the SSO provider needs to read it each time!
 
 After successful access with the token, a cookie is set for authentication, so you don't need to worry about it anymore.
-To improve user experience you can set `BTCEXP_SSO_LOGIN_REDIRECT_URL` to the URL of your SSO provider.
+To improve user experience you can set `LTCEXP_SSO_LOGIN_REDIRECT_URL` to the URL of your SSO provider.
 This will cause users to be redirected to your login page if needed.
 
 ## Run via Docker
 
-1. `docker build -t btc-rpc-explorer .`
-2. `docker run -it -p 3002:3002 -e BTCEXP_HOST=0.0.0.0 btc-rpc-explorer`
+1. `docker build -t ltc-rpc-explorer .`
+2. `docker run -it -p 3003:3003 -e LTCEXP_HOST=0.0.0.0 ltc-rpc-explorer`
 
 
 ## Reverse proxy with HTTPS
@@ -154,15 +146,11 @@ See [instructions here](docs/nginx-reverse-proxy.md) for using nginx+certbot (le
 
 If you get value from this project, please consider supporting my work with a donation. All donations are truly appreciated.
 
-Donate via BTC Pay Server:
+Donate with LTC
 
-* [https://donate.bitcoinexplorer.org](https://donate.bitcoinexplorer.org)
+LXigMwv7ATnPWqtC6iCQqcthnVSeyidcy4 
 
-Or, via a lightning address:
-
-thanks@donate.btc21.org
-
-
+<!--
 [npm-ver-img]: https://img.shields.io/npm/v/btc-rpc-explorer.svg?style=flat
 [npm-ver-url]: https://www.npmjs.com/package/btc-rpc-explorer
 [npm-dl-img]: http://img.shields.io/npm/dm/btc-rpc-explorer.svg?style=flat
@@ -172,4 +160,4 @@ thanks@donate.btc21.org
 [npm-dl-monthly-img]: https://badgen.net/npm/dm/btc-rpc-explorer?icon=npm&cache=300
 [npm-dl-yearly-img]: https://badgen.net/npm/dy/btc-rpc-explorer?icon=npm&cache=300
 [npm-dl-alltime-img]: https://badgen.net/npm/dt/btc-rpc-explorer?icon=npm&cache=300&label=total%20downloads
-
+-->

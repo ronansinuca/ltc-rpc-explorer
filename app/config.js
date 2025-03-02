@@ -87,7 +87,7 @@ const slowDeviceMode = (process.env.LTCEXP_SLOW_DEVICE_MODE.toLowerCase() == "tr
 
 module.exports = {
 	host: process.env.LTCEXP_HOST || "127.0.0.1",
-	port: process.env.PORT || process.env.LTCEXP_PORT || 3002,
+	port: process.env.PORT || process.env.LTCEXP_PORT || 3003,
 	secureSite: process.env.LTCEXP_SECURE_SITE == "true",
 
 	baseUrl: baseUrl,

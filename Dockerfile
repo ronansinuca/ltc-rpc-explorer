@@ -8,4 +8,4 @@ WORKDIR /workspace
 COPY --from=builder /workspace .
 RUN apk --update add git
 CMD npm start
-EXPOSE 3002
+EXPOSE 3003

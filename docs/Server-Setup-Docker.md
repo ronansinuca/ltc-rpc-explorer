@@ -12,6 +12,6 @@
 	# build docker image
 	docker build -t ltc-rpc-explorer .
 
-	# run docker image: detached mode, share port 3002, sharing config dir, from the "ltc-rpc-explorer" image made above
+	# run docker image: detached mode, share port 3003, sharing config dir, from the "ltc-rpc-explorer" image made above
 	docker run --name=ltc-rpc-explorer -d -v /host-os/env-dir:/container/env-dir --network="host" ltc-rpc-explorer
 	

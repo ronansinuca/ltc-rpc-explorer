@@ -11,7 +11,7 @@ const args = require('meow')(`
 	  $ ltc-rpc-explorer [options]
 
 	Options
-	  -p, --port <port>			  port to bind http server [default: 3002]
+	  -p, --port <port>			  port to bind http server [default: 3003]
 	  -i, --host <host>			  host to bind http server [default: 127.0.0.1]
 	  -a, --basic-auth-password <..> protect web interface with a password [default: no password]
 	  -C, --coin <coin>			  crypto-coin to enable [default: LTC]

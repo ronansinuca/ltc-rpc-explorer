@@ -23,4 +23,4 @@ services:
     image: ltc-rpc-explorer:latest
     #restart: "no"
     ports:
-      - "3002:3002"
+      - "3003:3003"
