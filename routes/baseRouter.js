@@ -2336,12 +2336,4 @@ router.get("/fun", function(req, res, next) {
 	next();
 });
 
-router.get("/holidays", function(req, res, next) {
-	res.locals.ltcHolidays = global.ltcHolidays;
-
-	res.render("holidays");
-
-	next();
-});
-
 module.exports = router;

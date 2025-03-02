@@ -90,7 +90,6 @@ const qrcode = require("qrcode");
 const addressApi = require("./app/api/addressApi.js");
 const electrumAddressApi = require("./app/api/electrumAddressApi.js");
 const appStats = require("./app/appStats.js");
-const ltcHolidays = require("./app/coins/ltcHolidays.js");
 const auth = require('./app/auth.js');
 const sso = require('./app/sso.js');
 const markdown = require("markdown-it")();
@@ -446,31 +445,6 @@ function loadHistoricalDataForChain(chain) {
 	}
 }
 
-function loadHolidays(chain) {
-	debugLog(`Loading holiday data`);
-
-	global.ltcHolidays = ltcHolidays;
-	global.ltcHolidays.byDay = {};
-	global.ltcHolidays.sortedDays = [];
-	global.ltcHolidays.sortedItems = [...ltcHolidays.items];
-	global.ltcHolidays.sortedItems.sort((a, b) => a.date.localeCompare(b.date));
-
-	global.ltcHolidays.items.forEach(function(item) {
-		let day = item.date.substring(5);
-
-		if (!global.ltcHolidays.sortedDays.includes(day)) {
-			global.ltcHolidays.sortedDays.push(day);
-			global.ltcHolidays.sortedDays.sort();
-		}
-
-		if (global.ltcHolidays.byDay[day] == undefined) {
-			global.ltcHolidays.byDay[day] = [];
-		}
-
-		global.ltcHolidays.byDay[day].push(item);
-	});
-}
-
 function verifyRpcConnection() {
 	if (!global.activeBlockchain) {
 		debugLog(`Verifying RPC connection...`);
@@ -552,11 +526,6 @@ async function onRpcConnectionVerified(getnetworkinfo, getblockchaininfo) {
 	
 	debugLog(`RPC Connected: version=${getnetworkinfo.version} subversion=${getnetworkinfo.subversion}, parsedVersion(used for RPC versioning)=${global.ltcNodeSemver}, protocolversion=${getnetworkinfo.protocolversion}, chain=${getblockchaininfo.chain}, services=${services}`);
 
-	
-	// load historical/fun items for this chain
-	loadHistoricalDataForChain(global.activeBlockchain);
-
-	loadHolidays();
 
 	if (global.activeBlockchain == "main") {
 		loadDifficultyHistory(getblockchaininfo.blocks);

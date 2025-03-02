@@ -218,32 +218,6 @@ module.exports = {
 
 
 
-
-		// fun
-		{
-			"category":"fun",
-			"url":"/holidays/all",
-			"desc":"Returns the full curated list of Litecoin Holidays."
-		},
-		{
-			"category":"fun",
-			"url":"/holidays/today",
-			"desc":"Returns the Litecoin Holidays celebrated 'today' (i.e. at the time the API call is made).",
-			"optionalParams": {
-				"tzOffset":"The number of hours to offset from UTC for the caller's local timezone, e.g. \"-5\" for EST"
-			},
-			"testUrl": "/holidays/today?tzOffset=-5"
-		},
-		{
-			"category":"fun",
-			"url":"/holidays/$DAY",
-			"desc":"Returns the Litecoin Holidays celebrated on the specified day, using one of the following formats: yyyy-MM-DD, MM-DD.",
-			"testUrl": "/holidays/01-03"
-		},
-
-
-
-
 		// admin
 		{
 			"category":"admin",
