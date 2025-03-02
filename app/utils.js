@@ -1308,7 +1308,7 @@ const xpubPrefixes = new Map([
 	['Ypub', '0295b43f'],
 	['zpub', '04b24746'],
 	['Zpub', '02aa7ed3'],
-	['tpub', '043587cf'],
+	['tpub', '0436f6e1'],
 	['upub', '044a5262'],
 	['Upub', '024289ef'],
 	['vpub', '045f1cf6'],
@@ -1316,16 +1316,17 @@ const xpubPrefixes = new Map([
 ]);
 
 const bip32TestnetNetwork = {
-	messagePrefix: '\x18Bitcoin Signed Message:\n', // TODO: update for Litecoin
-	bech32: 'tb',
+	messagePrefix: '\x19Litecoin Signed Message:\n',
+	bech32: 'tltc',
 	bip32: {
-		public: 0x043587cf,
-		private: 0x04358394,
+		public: 0x0436f6e1,
+		private: 0x0436ef7d,
 	},
 	pubKeyHash: 0x6f,
-	scriptHash: 0xc4,
-	wif: 0xEF,
+	scriptHash: 0x3a,
+	wif: 0xef,
 };
+
 
 // ref: https://github.com/ExodusMovement/xpub-converter/blob/master/src/index.js
 function xpubChangeVersionBytes(xpub, targetFormat) {
@@ -1513,7 +1514,7 @@ function tryParseAddress(address) {
 
 	let parsedAddress = null;
 
-	let b58prefix = (global.activeBlockchain == "main" ? /^[13].*$/ : /^[2mn].*$/);
+	let b58prefix = (global.activeBlockchain == "main" ? /^[LM3].*$/ : /^[mn2].*$/);
 	if (address.match(b58prefix)) {
 		try {
 			parsedAddress = bitcoinjs.address.fromBase58Check(address);
