@@ -425,26 +425,6 @@ function loadChangelog() {
 	});
 }
 
-function loadHistoricalDataForChain(chain) {
-	debugLog(`Loading historical data for chain=${chain}`);
-
-	if (global.coinConfig.historicalData) {
-		global.coinConfig.historicalData.forEach(function(item) {
-			if (item.chain == chain) {
-				if (item.type == "blockheight") {
-					global.specialBlocks[item.blockHash] = item;
-
-				} else if (item.type == "tx") {
-					global.specialTransactions[item.txid] = item;
-
-				} else if (item.type == "address" || item.address) {
-					global.specialAddresses[item.address] = {type:"fun", addressInfo:item};
-				}
-			}
-		});
-	}
-}
-
 function verifyRpcConnection() {
 	if (!global.activeBlockchain) {
 		debugLog(`Verifying RPC connection...`);
