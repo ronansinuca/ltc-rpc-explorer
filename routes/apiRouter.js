@@ -24,7 +24,6 @@ const addressApi = require("./../app/api/addressApi.js");
 const xyzpubApi = require("./../app/api/xyzpubApi.js");
 const rpcApi = require("./../app/api/rpcApi.js");
 const apiDocs = require("./../docs/api.js");
-const ltcQuotes = require("./../app/coins/ltcQuotes.js");
 
 
 
@@ -1055,42 +1054,6 @@ router.get("/price", function(req, res, next) {
 
 
 /// FUN
-
-router.get("/quotes/random", function(req, res, next) {
-	let index = utils.randomInt(0, ltcQuotes.items.length);
-
-	let quote = null;
-	let done = false;
-
-	while (!done) {
-		let quoteIndex = utils.randomInt(0, ltcQuotes.items.length);
-		quote = ltcQuotes.items[quoteIndex];
-
-		done = !utils.objHasProperty(quote, "duplicateIndex");
-	}
-	
-	res.json(quote);
-
-	next();
-});
-
-router.get("/quotes/all", function(req, res, next) {
-	res.json(ltcQuotes.items);
-
-	next();
-});
-
-router.get("/quotes/:quoteIndex", function(req, res, next) {
-	if (!req.params.quoteIndex.match(/\d+/)) {
-		return;
-	}
-
-	let index = parseInt(req.params.quoteIndex);
-	
-	res.json(ltcQuotes.items[index]);
-
-	next();
-});
 
 router.get("/holidays/all", function(req, res, next) {
 	res.json(global.ltcHolidays.sortedItems);

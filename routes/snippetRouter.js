@@ -19,7 +19,6 @@ const coins = require("./../app/coins.js");
 const config = require("./../app/config.js");
 const coreApi = require("./../app/api/coreApi.js");
 const addressApi = require("./../app/api/addressApi.js");
-const ltcQuotes = require("./../app/coins/ltcQuotes.js");
 
 
 
@@ -29,21 +28,6 @@ router.get("/formatCurrencyAmount/:amt", function(req, res, next) {
 	res.locals.currencyValue = req.params.amt;
 
 	res.render("includes/value-display");
-
-	next();
-});
-
-router.get("/quote/random", function(req, res, next) {
-	let done = false;
-
-	while (!done) {
-		res.locals.quoteIndex = utils.randomInt(0, ltcQuotes.items.length);
-		res.locals.quote = ltcQuotes.items[res.locals.quoteIndex];
-
-		done = !utils.objHasProperty(res.locals.quote, "duplicateIndex");
-	}
-
-	res.render("snippets/quote");
 
 	next();
 });

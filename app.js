@@ -90,7 +90,6 @@ const qrcode = require("qrcode");
 const addressApi = require("./app/api/addressApi.js");
 const electrumAddressApi = require("./app/api/electrumAddressApi.js");
 const appStats = require("./app/appStats.js");
-const ltcQuotes = require("./app/coins/ltcQuotes.js");
 const ltcHolidays = require("./app/coins/ltcHolidays.js");
 const auth = require('./app/auth.js');
 const sso = require('./app/sso.js');

@@ -222,22 +222,6 @@ module.exports = {
 		// fun
 		{
 			"category":"fun",
-			"url":"/quotes/all",
-			"desc":"Returns the full curated list of Litecoin quotes.",
-		},
-		{
-			"category":"fun",
-			"url":"/quotes/$INDEX",
-			"desc":"Returns the Litecoin quote with the given index from the curated list.",
-			"testUrl": "/quotes/0"
-		},
-		{
-			"category":"fun",
-			"url":"/quotes/random",
-			"desc":"Returns a random Litecoin quote from the curated list."
-		},
-		{
-			"category":"fun",
 			"url":"/holidays/all",
 			"desc":"Returns the full curated list of Litecoin Holidays."
 		},

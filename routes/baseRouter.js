@@ -26,7 +26,6 @@ const config = require("./../app/config.js");
 const coreApi = require("./../app/api/coreApi.js");
 const addressApi = require("./../app/api/addressApi.js");
 const rpcApi = require("./../app/api/rpcApi.js");
-const ltcQuotes = require("./../app/coins/ltcQuotes.js");
 
 const forceCsrf = csrfApi({ ignoreMethods: [] });
 
@@ -2337,140 +2336,12 @@ router.get("/fun", function(req, res, next) {
 	next();
 });
 
-router.get("/quotes", function(req, res, next) {
-	let viewType = "new-first";
-	if (req.query.viewType) {
-		viewType = req.query.viewType;
-	}
-
-	let listNewFirst = ltcQuotes.items;
-	for (let i = 0; i < listNewFirst.length; i++) {
-		listNewFirst[i].quoteIndex = i;
-	}
-	listNewFirst = listNewFirst.filter(x => { return !x.duplicateIndex; });
-	
-	listNewFirst.sort(function(a, b) {
-		let dateCompare = b.date.localeCompare(a.date);
-
-		if (dateCompare != 0) {
-			return dateCompare;
-		}
-
-		let speakerCompare = a.speaker.localeCompare(b.speaker);
-
-		if (speakerCompare != 0) {
-			return speakerCompare;
-		}
-
-		return a.text.localeCompare(b.text);
-	});
-
-	let listOldFirst = [...listNewFirst];
-	listOldFirst.reverse();
-
-	let listByYear = {};
-	let itemYears = [];
-
-	listNewFirst.forEach(item => {
-		let itemYear = item.date.substring(0, 4);
-
-		if (!itemYears.includes(itemYear)) {
-			itemYears.push(itemYear);
-			listByYear[itemYear] = [];
-		}
-
-		listByYear[itemYear].push(item);
-	});
-
-	let listByMonth = {};
-	let itemMonths = [];
-
-	listNewFirst.forEach(item => {
-		let itemMonth = item.date.substring(5, 7);
-
-		if (!itemMonths.includes(itemMonth)) {
-			itemMonths.push(itemMonth);
-			listByMonth[itemMonth] = [];
-		}
-
-		listByMonth[itemMonth].push(item);
-	});
-
-	itemMonths.sort();
-
-	res.locals.viewType = viewType;
-	res.locals.listNewFirst = listNewFirst;
-	res.locals.listOldFirst = listOldFirst;
-	res.locals.listByYear = listByYear;
-	res.locals.itemYears = itemYears;
-	res.locals.listByMonth = listByMonth;
-	res.locals.itemMonths = itemMonths;
-
-	res.render("quotes");
-
-	next();
-});
-
 router.get("/holidays", function(req, res, next) {
 	res.locals.ltcHolidays = global.ltcHolidays;
 
 	res.render("holidays");
 
 	next();
-});
-
-router.get("/quote/:quoteIndex", function(req, res, next) {
-	res.locals.quoteIndex = parseInt(req.params.quoteIndex);
-	res.locals.ltcQuotes = ltcQuotes.items;
-
-	if (ltcQuotes.items[res.locals.quoteIndex].duplicateIndex) {
-		let duplicateIndex = ltcQuotes.items[res.locals.quoteIndex].duplicateIndex;
-
-		res.redirect(`${config.baseUrl}quote/${duplicateIndex}`);
-
-		return;
-	}
-
-	res.render("quote");
-
-	next();
-});
-
-router.get("/bitcoin-whitepaper", function(req, res, next) {
-	res.render("bitcoin-whitepaper");
-
-	next();
-});
-
-router.get("/bitcoin.pdf", function(req, res, next) {
-	// ref: https://bitcoin.stackexchange.com/questions/35959/how-is-the-whitepaper-decoded-from-the-blockchain-tx-with-1000x-m-of-n-multisi
-	const whitepaperTxid = "54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713";
-
-	// get all outputs except the last 2 using `gettxout`
-	Promise.all([...Array(946).keys()].map(vout => coreApi.getTxOut(whitepaperTxid, vout)))
-	.then(function (vouts) {
-		// concatenate all multisig pubkeys
-		let pdfData = vouts.map((out, n) => {
-			let parts = out.scriptPubKey.asm.split(" ")
-			// the last output is a 1-of-1
-			return n == 945 ? parts[1] : parts.slice(1,4).join('')
-		}).join('')
-
-		// strip size and checksum from start and null bytes at the end
-		pdfData = pdfData.slice(16).slice(0, -16);
-
-		const hexArray = utils.arrayFromHexString(pdfData);
-		res.contentType("application/pdf");
-		res.send(Buffer.alloc(hexArray.length, hexArray, "hex"));
-	}).catch(function(err) {
-		res.locals.userMessageMarkdown = `Failed to load transaction outputs: txid=**${whitepaperTxid}**`;
-
-		res.locals.pageErrors.push(utils.logError("432907twhgeyedg", err));
-
-		res.render("transaction");
-
-		next();
-	});
 });
 
 module.exports = router;
