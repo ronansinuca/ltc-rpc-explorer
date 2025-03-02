@@ -8,7 +8,7 @@
 ---
 
 
-[homepage](./public/img/screenshots/homepage.png)
+![homepage](./public/img/screenshots/homepage.png)
 
 
 
