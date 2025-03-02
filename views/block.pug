@@ -113,7 +113,7 @@ block content
 									+valueDisplay(currencyValue)
 
 							if (result.blockstats.feerate_percentiles)
-								+summaryItem("Rate Percentiles", null, "sat/vB")
+								+summaryItem("Rate Percentiles", null, "lit/vB")
 									- var percentiles = [[10, 0], [50, 2], [90, 4]];
 
 									if (true)
@@ -127,7 +127,7 @@ block content
 													| #{result.blockstats.feerate_percentiles[item[1]]}
 
 
-							+summaryItem("Min / Max Rates", null, "sat/vB")
+							+summaryItem("Min / Max Rates", null, "lit/vB")
 								if (result.blockstats.minfeerate || result.blockstats.minfeerate == 0)
 									span #{result.blockstats.minfeerate.toLocaleString()}
 									

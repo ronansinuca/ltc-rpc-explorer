@@ -266,7 +266,7 @@ function formatCurrencyAmountWithForcedDecimalPlaces(amount, formatType, forcedD
 			// with Issue #500, the idea was raised that stripping trailing zeroes can
 			// make values more difficult to parse visually; now the stripping is
 			// dynamic, based on the value - if any of the 4 least-significant digits
-			// are non-zero (i.e. sat-value is NOT evenly divisible by 10,000), then
+			// are non-zero (i.e. lit-value is NOT evenly divisible by 10,000), then
 			// no stripping is performed, otherwise it is performed, to preserve some
 			// of the UX benefit of larger, "even" amounts (e.g. 0.1LTC).
 			let trailingZeroesStrippedStr = baseStr.replace(/0+$/, "");
@@ -335,7 +335,7 @@ function addThousandsSeparators(x) {
 	return parts.join(".");
 }
 
-function satoshisPerUnitOfLocalCurrency(localCurrency) {
+function litoshisPerUnitOfLocalCurrency(localCurrency) {
 	if (global.exchangeRates != null) {
 		let exchangeType = localCurrency;
 
@@ -352,15 +352,15 @@ function satoshisPerUnitOfLocalCurrency(localCurrency) {
 		dec = one.dividedBy(dec);
 
 		let unitName = coins[config.coin].baseCurrencyUnit.name;
-		let satCurrencyType = global.currencyTypes["sat"];
+		let litCurrencyType = global.currencyTypes["lit"];
 		let localCurrencyType = global.currencyTypes[localCurrency];
 
-		// LTC/USD -> sat/USD
-		dec = dec.times(satCurrencyType.multiplier);
+		// LTC/USD -> lit/USD
+		dec = dec.times(litCurrencyType.multiplier);
 
 		let exchangedAmt = parseInt(dec);
 
-		return {amt:addThousandsSeparators(exchangedAmt),amtRaw:exchangedAmt, unit:`sat/${localCurrencyType.symbol}`}
+		return {amt:addThousandsSeparators(exchangedAmt),amtRaw:exchangedAmt, unit:`lit/${localCurrencyType.symbol}`}
 	}
 
 	return null;
@@ -1667,7 +1667,7 @@ module.exports = {
 	formatCurrencyAmountWithForcedDecimalPlaces: formatCurrencyAmountWithForcedDecimalPlaces,
 	formatExchangedCurrency: formatExchangedCurrency,
 	getExchangedCurrencyFormatData: getExchangedCurrencyFormatData,
-	satoshisPerUnitOfLocalCurrency: satoshisPerUnitOfLocalCurrency,
+	litoshisPerUnitOfLocalCurrency: litoshisPerUnitOfLocalCurrency,
 	addThousandsSeparators: addThousandsSeparators,
 	formatCurrencyAmountInSmallestUnits: formatCurrencyAmountInSmallestUnits,
 	seededRandom: seededRandom,

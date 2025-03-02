@@ -44,9 +44,9 @@ function getAddressDetails(address, scriptPubkey, sort, limit, offset) {
 			}
 
 			response.txCount = blockcypherJson.n_tx;
-			response.totalReceivedSat = blockcypherJson.total_received;
-			response.totalSentSat = blockcypherJson.total_sent;
-			response.balanceSat = blockcypherJson.final_balance;
+			response.totalReceivedLit = blockcypherJson.total_received;
+			response.totalSentLit = blockcypherJson.total_sent;
+			response.balanceLit = blockcypherJson.final_balance;
 			response.source = "blockcypher.com";
 
 			resolve({addressDetails:response});

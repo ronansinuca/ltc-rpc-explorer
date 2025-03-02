@@ -762,7 +762,7 @@ expressApp.onStartup = async () => {
 	global.coinConfig = coins[config.coin];
 	global.coinConfigs = coins;
 
-	global.SATS_PER_LTC = global.coinConfig.baseCurrencyUnit.multiplier;
+	global.LITS_PER_LTC = global.coinConfig.baseCurrencyUnit.multiplier;
 
 	global.specialTransactions = {};
 	global.specialBlocks = {};

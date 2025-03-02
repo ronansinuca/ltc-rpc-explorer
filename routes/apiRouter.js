@@ -948,7 +948,7 @@ router.get("/mempool/fees", asyncHandler(async (req, res, next) => {
 
 const supportedCurrencies = ["usd", "eur", "gbp", "xau"];
 
-router.get("/price/sats", function(req, res, next) {
+router.get("/price/lits", function(req, res, next) {
 	let result = {};
 	let amount = 1.0;
 
@@ -959,16 +959,16 @@ router.get("/price/sats", function(req, res, next) {
 
 	supportedCurrencies.forEach(currency => {
 		if (global.exchangeRates != null && global.exchangeRates[currency] != null) {
-			let satsRateData = utils.satoshisPerUnitOfLocalCurrency(currency);
-			result[currency] = satsRateData.amtRaw;
+			let litsRateData = utils.litoshisPerUnitOfLocalCurrency(currency);
+			result[currency] = litsRateData.amtRaw;
 
 		} else if (currency == "xau" && global.exchangeRates != null && global.goldExchangeRates != null) {
 			let dec = new Decimal(amount);
 			dec = dec.times(global.exchangeRates.usd).dividedBy(global.goldExchangeRates.usd);
-			let satCurrencyType = global.currencyTypes["sat"];
+			let litCurrencyType = global.currencyTypes["lit"];
 			let one = new Decimal(1);
 			dec = one.dividedBy(dec);
-			dec = dec.times(satCurrencyType.multiplier);
+			dec = dec.times(litCurrencyType.multiplier);
 			
 			result[currency] = dec.toFixed(0);
 		}

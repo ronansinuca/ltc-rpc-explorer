@@ -190,7 +190,7 @@ module.exports = {
 		{
 			"category":"mempool",
 			"url":"/mempool/fees",
-			"desc":"Returns recommended fee rates in sats/vB for next block, ~30 min, 1 hr, and 1 day.",
+			"desc":"Returns recommended fee rates in lits/vB for next block, ~30 min, 1 hr, and 1 day.",
 			"example": {"nextBlock":17,"30min":9,"60min":9,"1day":9}
 		},
 
@@ -212,8 +212,8 @@ module.exports = {
 		},
 		{
 			"category":"price",
-			"url":"/price/sats",
-			"desc":"Returns the price of 1 unit of [USD, EUR, GBP, XAU] (e.g. 1 \"usd\") in satoshis (aka \"Moscow Time\")",
+			"url":"/price/lits",
+			"desc":"Returns the price of 1 unit of [USD, EUR, GBP, XAU] (e.g. 1 \"usd\") in litoshis (aka \"Moscow Time\")",
 		},
 
 

@@ -231,10 +231,10 @@ function getAddressDetails(address, scriptPubkey, sort, limit, offset) {
 			}
 
 			if (balanceData) {
-				addressDetails.balanceSat = balanceData.confirmed;
+				addressDetails.balanceLit = balanceData.confirmed;
 
 				if (balanceData.unconfirmed) {
-					addressDetails.unconfirmedBalanceSat = balanceData.unconfirmed;
+					addressDetails.unconfirmedBalanceLit = balanceData.unconfirmed;
 				}
 			}
 

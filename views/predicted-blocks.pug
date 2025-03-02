@@ -36,7 +36,7 @@ block content
 							th.text-end N(tx)
 							th.text-end Σ Fees
 							th.text-end Fee Rate
-								small.text-muted.fw-light.ms-1 (sat/vB)
+								small.text-muted.fw-light.ms-1 (lit/vB)
 							th.text-end % Full
 
 					tbody(id="block-table-body")
@@ -72,7 +72,7 @@ block endOfBody
 	
 
 	script.
-		var satoshiPerByteBucketMaxima = !{JSON.stringify(satoshiPerByteBucketMaxima)};
+		var litoshiPerByteBucketMaxima = !{JSON.stringify(litoshiPerByteBucketMaxima)};
 		var statusId = Math.random().toString(36).substr(2, 5);
 		var statusInterval;
 		var blocks = null;

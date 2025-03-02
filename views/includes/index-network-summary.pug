@@ -55,10 +55,10 @@ if (exchangeRates)
 					span.me-1 #{formatData.symbol}
 					| #{formatData.val}
 
-			+summaryItem("Sats Rate")
-				- var satsRateData = utils.satoshisPerUnitOfLocalCurrency(userSettings.localCurrency);
-				span #{satsRateData.amt}
-					small  #{satsRateData.unit}
+			+summaryItem("Lits Rate")
+				- var litsRateData = utils.litoshisPerUnitOfLocalCurrency(userSettings.localCurrency);
+				span #{litsRateData.amt}
+					small  #{litsRateData.unit}
 
 			+summaryItem("Market Cap")
 				- var supply = utils.estimatedSupply(getblockchaininfo.blocks);
@@ -309,12 +309,12 @@ if (exchangeRates)
 								// so that the two elements remain on the same line
 								return `${currencyType.symbol}&nbsp;${val}`
 							}
-							if (parts.currencyUnit == "sat") {
+							if (parts.currencyUnit == "lit") {
 								// Add K, M, G, ... suffix to amount
 								const largeNumberData = utils.formatLargeNumberSignificant(parts.intVal, 3);
 								val = `${largeNumberData[0]}${largeNumberData[1].abbreviation}`
 							}
-							// Amount followed by minimized currency name (LTC or sat) with a non-breaking space in-between
+							// Amount followed by minimized currency name (LTC or lit) with a non-breaking space in-between
 							return `${val}&nbsp;<span class='text-tiny'>${currencyType.name}</span>`
 						}
 					- const warningFees = formatFees(thresholds_totalFees.warning)
@@ -342,10 +342,10 @@ if (exchangeRates)
 				| - #{new Decimal(nextBlockMaxFeeRate).toDP(0)}
 				a(href=`./tx/${nextBlockMaxFeeTxid}`)
 					i.bi-circle
-				small.ms-2.text-muted sat/vB
+				small.ms-2.text-muted lit/vB
 
 		if (smartFeeEstimateStrings.length > 0)
-			+summaryItem(`Smart Fees`, `The recommended fee rate to target confirmation in ${smartFeeEstimateBlocks.join(", ")} blocks`, "sat/vB")
+			+summaryItem(`Smart Fees`, `The recommended fee rate to target confirmation in ${smartFeeEstimateBlocks.join(", ")} blocks`, "lit/vB")
 				each x, xIndex in smartFeeEstimateStrings
 					if (xIndex > 0)
 						span.mx-2.text-muted /

@@ -34,9 +34,9 @@ const currencyUnits = [
 	},
 	{
 		type:"native",
-		name:"sat",
+		name:"lit",
 		multiplier:100000000,
-		values:["sat", "satoshi"],
+		values:["lit", "litoshi"],
 		decimalPlaces:0
 	},
 	{
@@ -107,10 +107,10 @@ module.exports = {
 	targetBlockTimeSeconds: 150,
 	targetBlockTimeMinutes: 10,
 	currencyUnits:currencyUnits,
-	currencyUnitsByName:{"LTC":currencyUnits[0], "mLTC":currencyUnits[1], "bits":currencyUnits[2], "sat":currencyUnits[3]},
+	currencyUnitsByName:{"LTC":currencyUnits[0], "mLTC":currencyUnits[1], "bits":currencyUnits[2], "lit":currencyUnits[3]},
 	baseCurrencyUnit:currencyUnits[3],
 	defaultCurrencyUnit:currencyUnits[0],
-	feeSatoshiPerByteBucketMaxima: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 50, 75, 100, 150],
+	feeLitoshiPerByteBucketMaxima: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 50, 75, 100, 150],
 	
 	halvingBlockIntervalsByNetwork: {
 		"main": 840000,

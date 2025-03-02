@@ -232,12 +232,12 @@ mixin txList(visibleTxs, txCount, limit, offset, inputsByTxid, options={})
 							else if (txFee)
 								+infoBadge
 									span.border-dotted.fw-bold.me-1(title="The miner fee (and fee rate) paid by this transaction. The fee equals the difference between the total input value and the total output value.", data-bs-toggle="tooltip") fee
-									+_valueDisplaySat(txFee, 1000)
+									+_valueDisplayLit(txFee, 1000)
 
 									if (txFee > 0)
 										span.ms-2 (
 											| #{parseInt(txFee.dividedBy(tx.vsize).times(coinConfig.baseCurrencyUnit.multiplier)).toLocaleString()}
-											span.text-tiny.ms-1 sat/vB
+											span.text-tiny.ms-1 lit/vB
 											span )
 								
 
@@ -364,8 +364,8 @@ mixin valueDisplay(val, options={})
 		if (userSettings.displayCurrency == "ltc")
 			+_valueDisplayLtc(val, options)
 
-		else if (userSettings.displayCurrency == "sat")
-			+_valueDisplaySat(val, 1000000)
+		else if (userSettings.displayCurrency == "lit")
+			+_valueDisplayLit(val, 1000000)
 
 		else if (userSettings.displayCurrency == "local")
 			+_valueDisplayLocal(val, 1000000)
@@ -394,9 +394,9 @@ mixin _valueDisplayLtc(val, options={})
 		span.xs-hidden.d-none.d-sm-inline.text-tiny.text-tight-spacing.fw-light.ms-1 #{parts.currencyUnit}
 
 
-mixin _valueDisplaySat(val, summarizeMin=Infinity, summarizeDecimals=3)
+mixin _valueDisplayLit(val, summarizeMin=Infinity, summarizeDecimals=3)
 	- var localCurrencyDisplay = userSettings.displayCurrency == "local";
-	- var parts = utils.formatCurrencyAmount(val, "sat");
+	- var parts = utils.formatCurrencyAmount(val, "lit");
 
 	//span #{JSON.stringify(parts)}
 	

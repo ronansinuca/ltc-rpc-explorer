@@ -25,8 +25,8 @@ block content
 				| #{bip32Path}
 
 			+summaryItem(`Balance (addr: ${offset}-${(offset + limit - 1)})`, "Sum of the balances of the current page of addresses (receive and change) derived from this extended public key.")
-				span(class=(balanceSat > 0 ? "text-success" : false))
-					- var currencyValue = new Decimal(balanceSat).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
+				span(class=(balanceLit > 0 ? "text-success" : false))
+					- var currencyValue = new Decimal(balanceLit).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
 					+valueDisplay(currencyValue)
 
 
@@ -109,8 +109,8 @@ block content
 										td.text-end #{addressDetails.txCount.toLocaleString()}
 
 										td
-											span(class=(addressDetails.balanceSat > 0 ? "text-success" : false))
-												- var currencyValue = new Decimal(addressDetails.balanceSat).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
+											span(class=(addressDetails.balanceLit > 0 ? "text-success" : false))
+												- var currencyValue = new Decimal(addressDetails.balanceLit).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
 												+valueDisplay(currencyValue)
 
 
@@ -136,8 +136,8 @@ block content
 									td.text-end #{addressDetails.txCount.toLocaleString()}
 
 									td
-										span(class=(addressDetails.balanceSat > 0 ? "text-success" : false))
-											- var currencyValue = new Decimal(addressDetails.balanceSat).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
+										span(class=(addressDetails.balanceLit > 0 ? "text-success" : false))
+											- var currencyValue = new Decimal(addressDetails.balanceLit).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
 											+valueDisplay(currencyValue)
 
 

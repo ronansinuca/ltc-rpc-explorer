@@ -37,9 +37,9 @@ function getAddressDetails(address, scriptPubkey, sort, limit, offset) {
 			}
 
 			result.txCount = responseObj.address.transaction_count;
-			result.totalReceivedSat = responseObj.address.received;
-			result.totalSentSat = responseObj.address.spent;
-			result.balanceSat = responseObj.address.balance;
+			result.totalReceivedLit = responseObj.address.received;
+			result.totalSentLit = responseObj.address.spent;
+			result.balanceLit = responseObj.address.balance;
 			result.source = "blockchair.com";
 
 			resolve({addressDetails:result});

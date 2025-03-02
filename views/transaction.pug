@@ -149,7 +149,7 @@ block content
 								+valueDisplay(currencyValue)
 
 						else
-							+summaryItem("Fee Rate", null, "sat/vB")
+							+summaryItem("Fee Rate", null, "lit/vB")
 								if (!mempoolDetails && !global.txindexAvailable)
 									span.border-dotted(title="Determining the fee of confirmed transactions requires txindex to be enabled", data-bs-toggle="tooltip")
 										i.bi-backspace.text-danger.me-2

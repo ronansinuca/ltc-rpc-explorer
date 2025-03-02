@@ -83,9 +83,9 @@ function getAddressDetailsSortDesc(address, limit, offset) {
 
 			response.txCount = blockchainJson.n_tx;
 			response.hash160 = blockchainJson.hash160;
-			response.totalReceivedSat = blockchainJson.total_received;
-			response.totalSentSat = blockchainJson.total_sent;
-			response.balanceSat = blockchainJson.final_balance;
+			response.totalReceivedLit = blockchainJson.total_received;
+			response.totalSentLit = blockchainJson.total_sent;
+			response.balanceLit = blockchainJson.final_balance;
 			response.source = "blockchain.com";
 
 			resolve(response);

@@ -20,7 +20,7 @@ block content
 						| #{blockTemplate.transactions.length.toLocaleString()}
 
 
-					+summaryItem("Fee Rates", "Minimum / Median / Maximum fee rates for transaction expected to be included in the next block.", "sat/vB")
+					+summaryItem("Fee Rates", "Minimum / Median / Maximum fee rates for transaction expected to be included in the next block.", "lit/vB")
 						if (maxFeeRate != -1)
 							span.border-dotted(title="Minimum fee rate", data-bs-toggle="tooltip")
 								+numWithMutedDecimals(new Decimal(minFeeRate).toDP(2).toString())
@@ -54,7 +54,7 @@ block content
 									th.text-card-highlight.text-uppercase.fw-light ID
 									th.text-end.text-card-highlight.fw-light
 										span.text-uppercase Fee Rate
-										small.ms-1 (sat/vB)
+										small.ms-1 (lit/vB)
 
 									th.text-end.text-card-highlight.text-uppercase.fw-light Fee
 									th.text-end.text-card-highlight.fw-light

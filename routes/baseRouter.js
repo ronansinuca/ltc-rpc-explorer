@@ -296,7 +296,7 @@ router.get("/node-details", asyncHandler(async (req, res, next) => {
 
 router.get("/mempool-summary", asyncHandler(async (req, res, next) => {
 	try {
-		res.locals.satoshiPerByteBucketMaxima = coinConfig.feeSatoshiPerByteBucketMaxima;
+		res.locals.litoshiPerByteBucketMaxima = coinConfig.feeLitoshiPerByteBucketMaxima;
 
 		await utils.timePromise("mempool-summary/render", async () => {
 			res.render("mempool-summary");
@@ -782,15 +782,15 @@ router.get("/xyzpub/:extendedPubkey", asyncHandler(async (req, res, next) => {
 			res.locals.bip32Path = "-";
 		}
 
-		// Cumulate balanceSat of all addresses
-		res.locals.balanceSat = 0;
+		// Cumulate balanceLit of all addresses
+		res.locals.balanceLit = 0;
 
 		// Loop over the 2 types addresses (first receive and then change)
 		let allAddresses = [res.locals.receiveAddresses, res.locals.changeAddresses];
 		res.locals.receiveAddresses = [];
 		res.locals.changeAddresses = [];
 		for (let i = 0; i < allAddresses.length; i++) {
-			// Duplicate addresses and change them to addressDetails objects with 3 properties (address, balanceSat, txCount)
+			// Duplicate addresses and change them to addressDetails objects with 3 properties (address, balanceLit, txCount)
 			let addresses = [...allAddresses[i]];
 			for (let j = 0; j < addresses.length; j++) {
 				const address = addresses[j];
@@ -801,7 +801,7 @@ router.get("/xyzpub/:extendedPubkey", asyncHandler(async (req, res, next) => {
 
 				// In case of errors, we just skip this address result
 				if (Array.isArray(addressDetailsResult.errors) && addressDetailsResult.errors.length == 0) {
-					res.locals.balanceSat += addressDetailsResult.addressDetails.balanceSat;
+					res.locals.balanceLit += addressDetailsResult.addressDetails.balanceLit;
 					const addressDetails = { ...addressDetailsResult.addressDetails, address};
 					if (i == 0)
 						res.locals.receiveAddresses.push(addressDetails);
@@ -1228,7 +1228,7 @@ router.get("/block/:blockHash", asyncHandler(async (req, res, next) => {
 
 router.get("/predicted-blocks", asyncHandler(async (req, res, next) => {
 	try {
-		res.locals.satoshiPerByteBucketMaxima = coinConfig.feeSatoshiPerByteBucketMaxima;
+		res.locals.litoshiPerByteBucketMaxima = coinConfig.feeLitoshiPerByteBucketMaxima;
 
 		res.render("predicted-blocks");
 
@@ -1580,9 +1580,9 @@ router.get("/address/:address", asyncHandler(async (req, res, next) => {
 				if (addressDetails) {
 					res.locals.addressDetails = addressDetails;
 
-					if (addressDetails.balanceSat == 0) {
+					if (addressDetails.balanceLit == 0) {
 						// make sure zero balances pass the falsey check in the UI
-						addressDetails.balanceSat = "0";
+						addressDetails.balanceLit = "0";
 					}
 
 					if (addressDetails.txCount == 0) {

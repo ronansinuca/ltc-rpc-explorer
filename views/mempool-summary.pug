@@ -41,7 +41,7 @@ block content
 				+summaryItem("Avg Fee")
 					span#avg-fee
 
-				+summaryItem("Avg Fee Rate", null, "sat/vB")
+				+summaryItem("Avg Fee Rate", null, "lit/vB")
 					span#avg-fee-rate
 
 		+contentSection("Estimate Block Depth")
@@ -52,7 +52,7 @@ block content
 					.me-4.d-inline-block.mb-3
 						h6.text-card-highlight.fw-light
 							span.text-uppercase Fee Rate
-							small.ms-1 (sat/vB)
+							small.ms-1 (lit/vB)
 
 						- var feeRatesToEstimate = [1, 2, 3, 4, 5, 15, 25, 50, 75, 100, 150];
 
@@ -73,11 +73,11 @@ block content
 					.me-4.d-inline-block.mb-3
 						h6.text-card-highlight.fw-light
 							span.text-uppercase Custom Fee Rate
-							small.ms-1 (sat/vB)
+							small.ms-1 (lit/vB)
 
 						form.form-inline(method="post", action="javascript:void(0)", onsubmit=`estimateMempoolDepth($("#customFeeRate").val()); return false;` style="width: 200px;")
 							.input-group.input-group
-								input.form-control.form-control(id="customFeeRate", type="text", name="customFeeRate", placeholder="sat/vB", value=(customFeeRate))
+								input.form-control.form-control(id="customFeeRate", type="text", name="customFeeRate", placeholder="lit/vB", value=(customFeeRate))
 								
 								button.btn.btn-primary(type="submit", aria-label="Search")
 									i.bi-search
@@ -85,7 +85,7 @@ block content
 			hr.mt-1.mb-3
 
 			+summaryRow(3)
-				+summaryItem("Fee Rate", null, "sat/vB")
+				+summaryItem("Fee Rate", null, "lit/vB")
 					span#estimate-fee-rate -
 
 				+summaryItem("Est. Block Depth")
@@ -117,7 +117,7 @@ block content
 								th.text-end.text-card-highlight.text-uppercase.fw-light Avg Fee
 								th.text-end.text-card-highlight.fw-light
 									span.text-uppercase Avg Fee Rate
-									small.ms-1 (sat/vB)
+									small.ms-1 (lit/vB)
 						tbody(id="fee-rate-table-body")
 							tr(id="fee-rate-table-row-prototype", style="display: none;")
 								td.data-label
@@ -150,7 +150,7 @@ block content
 										th.text-card-highlight.text-uppercase.fw-light Txid
 										th.text-end.text-card-highlight.fw-light
 											span.text-uppercase Fee Rate
-											span.ms-2 (sat/vB)
+											span.ms-2 (lit/vB)
 
 								tbody(id="topfee-tx-table-body")
 									tr(id="topfee-tx-table-row-prototype", style="display: none;")
@@ -205,7 +205,7 @@ block endOfBody
 	
 
 	script.
-		var satoshiPerByteBucketMaxima = !{JSON.stringify(satoshiPerByteBucketMaxima)};
+		var litoshiPerByteBucketMaxima = !{JSON.stringify(litoshiPerByteBucketMaxima)};
 		var statusId = Math.random().toString(36).substr(2, 5);
 		var statusInterval;
 		var summary = null;
@@ -360,7 +360,7 @@ block endOfBody
 							},
 							title: {
 								display: true,
-								text: "Fee Rate (sat/vB)"
+								text: "Fee Rate (lit/vB)"
 							},
 						},
 						y: {
@@ -491,8 +491,8 @@ block endOfBody
 			// fee rate table
 			var sumBlockCount = new Decimal(0);
 
-			for (var i = (summary.satoshiPerByteBuckets.length - 1); i >= 0; i--) {
-				var item = summary.satoshiPerByteBuckets[i];
+			for (var i = (summary.litoshiPerByteBuckets.length - 1); i >= 0; i--) {
+				var item = summary.litoshiPerByteBuckets[i];
 
 				var row = $("#fee-rate-table-row-prototype").clone();
 				row.attr("id", null);
@@ -501,7 +501,7 @@ block endOfBody
 				var blockCount = new Decimal(item.totalWeight).dividedBy(4000000); // TODO: magic number: block weight
 				var sumBlockCount = sumBlockCount.plus(blockCount);
 
-				row.find(".data-label").text(summary.satoshiPerByteBucketLabels[i]);
+				row.find(".data-label").text(summary.litoshiPerByteBucketLabels[i]);
 				row.find(".data-count").text(item.count.toLocaleString());
 				row.find(".data-block-count").text(blockCount.toDP(2));
 				row.find(".data-sum-block-count").text(sumBlockCount.toDP(2));
@@ -595,10 +595,10 @@ block endOfBody
 			var feeBucketLabels = [];
 			
 			var blockCounts = [];
-			for (var i = 0; i < summary["satoshiPerByteBuckets"].length; i++) {
-				var item = summary["satoshiPerByteBuckets"][i];
+			for (var i = 0; i < summary["litoshiPerByteBuckets"].length; i++) {
+				var item = summary["litoshiPerByteBuckets"][i];
 
-				if (i < summary["satoshiPerByteBuckets"].length - 1) {
+				if (i < summary["litoshiPerByteBuckets"].length - 1) {
 					feeBucketLabels.push(item.minFeeRate);
 					blockCounts.push(item.totalWeight / 4000000);
 				}
@@ -608,14 +608,14 @@ block endOfBody
 
 			var lineData = [];
 			var totalWeight = 0;
-			for (var i = summary.satoshiPerByteBuckets.length - 1; i >= 0; i--) {
-				lineData.push(summary.satoshiPerByteBuckets[i].totalWeight / 4000000 + totalWeight);
-				totalWeight += summary.satoshiPerByteBuckets[i].totalWeight / 4000000;
+			for (var i = summary.litoshiPerByteBuckets.length - 1; i >= 0; i--) {
+				lineData.push(summary.litoshiPerByteBuckets[i].totalWeight / 4000000 + totalWeight);
+				totalWeight += summary.litoshiPerByteBuckets[i].totalWeight / 4000000;
 			}
 
-			feeBucketLabels.push((summary.satoshiPerByteBucketMaxima[summary.satoshiPerByteBucketMaxima.length - 1] + "+"));
+			feeBucketLabels.push((summary.litoshiPerByteBucketMaxima[summary.litoshiPerByteBucketMaxima.length - 1] + "+"));
 				
-			var totalfeeBuckets = summary["satoshiPerByteBucketTotalFees"];
+			var totalfeeBuckets = summary["litoshiPerByteBucketTotalFees"];
 			
 			var graphData = {
 				feeBucketLabels:feeBucketLabels.map(x => [x]),
@@ -678,7 +678,7 @@ block endOfBody
 
 		function estimateTransactionMempoolDepth(txid) {
 			var avgTransactionsPerBlock = 3000;
-			var satsPerBitcoin = 100000000; // TODO: magic number - replace with coinConfig.baseCurrencyUnit.multiplier
+			var litsPerBitcoin = 100000000; // TODO: magic number - replace with coinConfig.baseCurrencyUnit.multiplier
 			
 			$.ajax({
 				url: `./internal-api/mempool-tx-summaries/${txid}`
@@ -687,7 +687,7 @@ block endOfBody
 				if (resultList && resultList.length > 0) {
 					var result = resultList[0];
 
-					var feeRate = new Decimal(result.f).dividedBy(result.sz); // TODO: magic number, sat/LTC
+					var feeRate = new Decimal(result.f).dividedBy(result.sz); // TODO: magic number, lit/LTC
 
 					estimateMempoolDepth(feeRate);
 
@@ -710,8 +710,8 @@ block endOfBody
 
 			var sumBlockCount = new Decimal(0);
 
-			for (var i = (summary.satoshiPerByteBuckets.length - 1); i >= 0; i--) {
-				var item = summary.satoshiPerByteBuckets[i];
+			for (var i = (summary.litoshiPerByteBuckets.length - 1); i >= 0; i--) {
+				var item = summary.litoshiPerByteBuckets[i];
 
 				var blockCount = new Decimal(item.totalWeight).dividedBy(4000000); // TODO: magic number: block weight
 				

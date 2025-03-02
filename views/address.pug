@@ -75,7 +75,7 @@ block content
 					- if (x.ismine) { flags.push(["Mine", "This address is owned by your node."]); }
 					- if (x.iswatchonly) { flags.push(["Watch-Only"]); }
 
-					- var summaryRowItemCount = ((addressEncoding && addressEncoding != "unknown") ? 1 : 0) + (addressDetails ? ((addressDetails.txCount != null ? 1 : 0) + (addressDetails.balanceSat ? 1 : 0) + (addressDetails.unconfirmedBalanceSat ? 1 : 0) + (addressDetails.totalReceivedSat ? 1 : 0)) : 0) + (flags.length > 0 ? 1 : 0);
+					- var summaryRowItemCount = ((addressEncoding && addressEncoding != "unknown") ? 1 : 0) + (addressDetails ? ((addressDetails.txCount != null ? 1 : 0) + (addressDetails.balanceLit ? 1 : 0) + (addressDetails.unconfirmedBalanceLit ? 1 : 0) + (addressDetails.totalReceivedLit ? 1 : 0)) : 0) + (flags.length > 0 ? 1 : 0);
 					if (summaryRowItemCount > 0)
 						.clearfix
 							.float-start
@@ -94,38 +94,38 @@ block content
 									+summaryItem("Transactions")
 										| #{addressDetails.txCount.toLocaleString()}
 
-								if (addressDetails && addressDetails.balanceSat)
+								if (addressDetails && addressDetails.balanceLit)
 									+summaryItem("Balance")
-										span(class=(addressDetails.balanceSat > 0 ? "text-success" : false))
-											- var currencyValue = new Decimal(addressDetails.balanceSat).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
+										span(class=(addressDetails.balanceLit > 0 ? "text-success" : false))
+											- var currencyValue = new Decimal(addressDetails.balanceLit).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
 											+valueDisplay(currencyValue)
 
-								if (addressDetails && addressDetails.unconfirmedBalanceSat)
+								if (addressDetails && addressDetails.unconfirmedBalanceLit)
 									+summaryItem("Unconfirmed Balance")
-										span(class=(addressDetails.unconfirmedBalanceSat > 0 ? "text-success" : "text-danger"))
-											if (addressDetails.unconfirmedBalanceSat > 0)
+										span(class=(addressDetails.unconfirmedBalanceLit > 0 ? "text-success" : "text-danger"))
+											if (addressDetails.unconfirmedBalanceLit > 0)
 												span +
 											else
 												span -
 
-											- var currencyValue = new Decimal(Math.abs(addressDetails.unconfirmedBalanceSat)).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
+											- var currencyValue = new Decimal(Math.abs(addressDetails.unconfirmedBalanceLit)).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
 											+valueDisplay(currencyValue)
 
-								if (addressDetails && addressDetails.totalReceivedSat)
+								if (addressDetails && addressDetails.totalReceivedLit)
 									+summaryItem("Total Received / Sent")
-										span(class=(addressDetails.totalReceivedSat > 0 ? "text-success" : false))
-											if (addressDetails.totalReceivedSat)
+										span(class=(addressDetails.totalReceivedLit > 0 ? "text-success" : false))
+											if (addressDetails.totalReceivedLit)
 												span.me-1 +
 
-											- var currencyValue = new Decimal(Math.abs(addressDetails.totalReceivedSat)).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
+											- var currencyValue = new Decimal(Math.abs(addressDetails.totalReceivedLit)).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
 											+valueDisplay(currencyValue)
 
 										br
-										span(class=(addressDetails.totalSentSat > 0 ? "text-danger" : false))
-											if (addressDetails.totalSentSat > 0)
+										span(class=(addressDetails.totalSentLit > 0 ? "text-danger" : false))
+											if (addressDetails.totalSentLit > 0)
 												span.me-1 -
 
-											- var currencyValue = new Decimal(Math.abs(addressDetails.totalSentSat)).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
+											- var currencyValue = new Decimal(Math.abs(addressDetails.totalSentLit)).dividedBy(coinConfig.baseCurrencyUnit.multiplier);
 											+valueDisplay(currencyValue)
 
 								if (flags.length > 0)
