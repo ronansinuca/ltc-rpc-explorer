@@ -113,8 +113,8 @@ module.exports = {
 	feeSatoshiPerByteBucketMaxima: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 50, 75, 100, 150],
 	
 	halvingBlockIntervalsByNetwork: {
-		"main": 210000,
-		"test": 210000,
+		"main": 840000,
+		"test": 840000,
 		"regtest": 150
 	},
 
