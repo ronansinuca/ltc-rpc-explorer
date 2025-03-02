@@ -10,13 +10,13 @@ block content
 	+dismissableInfoAlert("holidaysNoteDismissed", "About Bitcoin Holidays...")
 		h6.mb-2 About Bitcoin Holidays
 
-		| This is a curated list of Bitcoin 'Holidays' that commemorate key moments in Bitcoin's history. Suggestions are welcome via an issue or PR on <a href='https://github.com/janoside/btc-rpc-explorer' target='_blank'>GitHub</a>.
+		| This is a curated list of Bitcoin 'Holidays' that commemorate key moments in Bitcoin's history. Suggestions are welcome via an issue or PR on <a href='https://github.com/tech1k/ltc-rpc-explorer' target='_blank'>GitHub</a>.
 
 
 	- var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	- var currentMonth = -1;
 
-	each day in btcHolidays.sortedDays
+	each day in ltcHolidays.sortedDays
 		- var month = parseInt(day.substring(0, 2)) - 1;
 
 		if (currentMonth != month)
@@ -24,7 +24,7 @@ block content
 
 			h2.mt-5 #{months[currentMonth]}
 
-		each item in btcHolidays.byDay[day]
+		each item in ltcHolidays.byDay[day]
 			- var dom = parseInt(day.substring(3));
 
 			.mb-2

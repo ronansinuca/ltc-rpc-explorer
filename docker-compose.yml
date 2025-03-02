@@ -4,23 +4,23 @@ networks:
 
 services:
   explorer:
-    container_name: btc-rpc-explorer
+    container_name: ltc-rpc-explorer
     #define $UID, $GID in .env file the user to run docker and write in data folder
     #user: "1000:1000"
     environment:
-      BTCEXP_HOST: 0.0.0.0
-      BTCEXP_BITCOIND_URI: $BTCEXP_BITCOIND_URI
-      BTCEXP_ADDRESS_API: $BTCEXP_ADDRESS_API
-      BTCEXP_ELECTRUM_SERVERS: $BTCEXP_ELECTRUM_SERVERS
-      BTCEXP_SLOW_DEVICE_MODE: false
-      #More information mode, including Bitcoin exchange rates
+      LTCEXP_HOST: 0.0.0.0
+      LTCEXP_LITECOIND_URI: $LTCEXP_LITECOIND_URI
+      LTCEXP_ADDRESS_API: $LTCEXP_ADDRESS_API
+      LTCEXP_ELECTRUM_SERVERS: $LTCEXP_ELECTRUM_SERVERS
+      LTCEXP_SLOW_DEVICE_MODE: false
+      #More information mode, including Litecoin exchange rates
       #More privacy mode, no external queries
-      # BTCEXP_PRIVACY_MODE: true
-      # BTCEXP_NO_RATES: true
-      # BTCEXP_UI_THEME: dark
+      # LTCEXP_PRIVACY_MODE: true
+      # LTCEXP_NO_RATES: true
+      # LTCEXP_UI_THEME: dark
     build:
       context: ./
-    image: btc-rpc-explorer:latest
+    image: ltc-rpc-explorer:latest
     #restart: "no"
     ports:
       - "3002:3002"

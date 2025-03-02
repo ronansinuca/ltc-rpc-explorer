@@ -14,7 +14,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const utils = require("./utils.js");
 
-const authCookieName = "btcexp_auth";
+const authCookieName = "ltcexp_auth";
 
 function generateToken() {
 	// Normally we would use 16 => 128 bits of entropy which is sufficiennt

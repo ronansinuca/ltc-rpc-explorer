@@ -13,7 +13,7 @@ A clear and concise description of what the bug is.
 
 **Environment (please complete the following information):**
 
- - Bitcoin Core / Node Version [e.g. 0.16.3]
+ - Litecoin Core / Node Version [e.g. 0.16.3]
  - NodeJS Version [e.g. 9.x]
  - Browser [e.g. chrome, safari]
  - Code Version / Commit [e.g. ab6cde8]
@@ -22,8 +22,8 @@ A clear and concise description of what the bug is.
 **Configuration file content**
 
 Please include the content from the following files. **BE SURE TO MODIFY YOUR CREDENTIALS BEFORE SUBMITTING!!!**
- - bitcoin.conf
- - Your btc-rpc-explorer environment configuration (either `$WORKING_DIR/.env` or `~/.config/btc-rpc-explorer.env`)
+ - litecoin.conf
+ - Your ltc-rpc-explorer environment configuration (either `$WORKING_DIR/.env` or `~/.config/ltc-rpc-explorer.env`)
 
 **To Reproduce**
 

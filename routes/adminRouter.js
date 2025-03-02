@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require("debug");
-const debugLog = debug("btcexp:router");
+const debugLog = debug("ltcexp:router");
 
 const fs = require('fs');
 const v8 = require('v8');

@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require('debug');
-const debugLog = debug("btcexp:rpc");
+const debugLog = debug("ltcexp:rpc");
 
 const async = require("async");
 const semver = require("semver");
@@ -72,7 +72,7 @@ function getMiningInfo() {
 }
 
 function getIndexInfo() {
-	if (semver.gte(global.btcNodeSemver, minRpcVersions.getindexinfo)) {
+	if (semver.gte(global.ltcNodeSemver, minRpcVersions.getindexinfo)) {
 		return getRpcData("getindexinfo");
 
 	} else {
@@ -82,7 +82,7 @@ function getIndexInfo() {
 }
 
 function getDeploymentInfo() {
-	if (semver.gte(global.btcNodeSemver, minRpcVersions.getdeploymentinfo)) {
+	if (semver.gte(global.ltcNodeSemver, minRpcVersions.getdeploymentinfo)) {
 		return getRpcData("getdeploymentinfo");
 
 	} else {
@@ -116,7 +116,7 @@ function getNetworkHashrate(blockCount=144) {
 }
 
 function getBlockStats(hash) {
-	if (semver.gte(global.btcNodeSemver, minRpcVersions.getblockstats)) {
+	if (semver.gte(global.ltcNodeSemver, minRpcVersions.getblockstats)) {
 		if (hash == coinConfig.genesisBlockHashesByNetwork[global.activeBlockchain] && coinConfig.genesisBlockStatsByNetwork[global.activeBlockchain]) {
 			return new Promise(function(resolve, reject) {
 				resolve(coinConfig.genesisBlockStatsByNetwork[global.activeBlockchain]);
@@ -132,7 +132,7 @@ function getBlockStats(hash) {
 }
 
 function getBlockStatsByHeight(height) {
-	if (semver.gte(global.btcNodeSemver, minRpcVersions.getblockstats)) {
+	if (semver.gte(global.ltcNodeSemver, minRpcVersions.getblockstats)) {
 		if (height == 0 && coinConfig.genesisBlockStatsByNetwork[global.activeBlockchain]) {
 			return new Promise(function(resolve, reject) {
 				resolve(coinConfig.genesisBlockStatsByNetwork[global.activeBlockchain]);
@@ -314,7 +314,7 @@ function getRawTransaction(txid, blockhash) {
 
 async function noTxIndexTransactionLookup(txid, walletOnly) {
 	// Try looking up with an external Electrum server, using 'get_confirmed_blockhash'.
-	// This is only available in Electrs and requires enabling BTCEXP_ELECTRUM_TXINDEX.
+	// This is only available in Electrs and requires enabling LTCEXP_ELECTRUM_TXINDEX.
 	if (!walletOnly && (config.addressApi == "electrum" || config.addressApi == "electrumx") && config.electrumTxIndex) {
 		try {
 			let blockhash = await electrumAddressApi.lookupTxBlockHash(txid);

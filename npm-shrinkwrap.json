@@ -1,11 +1,11 @@
 {
-	"name": "btc-rpc-explorer",
+	"name": "ltc-rpc-explorer",
 	"version": "3.4.0",
 	"lockfileVersion": 3,
 	"requires": true,
 	"packages": {
 		"": {
-			"name": "btc-rpc-explorer",
+			"name": "ltc-rpc-explorer",
 			"version": "3.4.0",
 			"license": "MIT",
 			"dependencies": {
@@ -53,7 +53,7 @@
 				"zeromq": "^6.1.2"
 			},
 			"bin": {
-				"btc-rpc-explorer": "bin/cli.js"
+				"ltc-rpc-explorer": "bin/cli.js"
 			},
 			"devDependencies": {
 				"eslint": "^8.39.0",

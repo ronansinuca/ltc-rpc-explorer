@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require("debug");
-const debugLog = debug("btcexp:router");
+const debugLog = debug("ltcexp:router");
 
 const express = require('express');
 const router = express.Router();
@@ -24,7 +24,7 @@ const addressApi = require("./../app/api/addressApi.js");
 const xyzpubApi = require("./../app/api/xyzpubApi.js");
 const rpcApi = require("./../app/api/rpcApi.js");
 const apiDocs = require("./../docs/api.js");
-const btcQuotes = require("./../app/coins/btcQuotes.js");
+const ltcQuotes = require("./../app/coins/ltcQuotes.js");
 
 
 
@@ -165,26 +165,26 @@ router.get("/tx/:txid", asyncHandler(async (req, res, next) => {
 		let outJson = results.transactions[0];
 		let txInputs = results.txInputsByTransaction[txid] || {};
 		
-		let inputBtc = 0;
+		let inputLtc = 0;
 		if (txInputs[0]) {
 			for (let key in txInputs) {
 				let item = txInputs[key];
-				inputBtc += item["value"] * global.coinConfig.baseCurrencyUnit.multiplier;
+				inputLtc += item["value"] * global.coinConfig.baseCurrencyUnit.multiplier;
 				outJson.vin[key].scriptSig.address = item.scriptPubKey.address;
 				outJson.vin[key].scriptSig.type = item.scriptPubKey.type;
 				outJson.vin[key].value = item.value;
 			}
 		}
 		
-		let outputBtc = 0;
+		let outputLtc = 0;
 		for (let key in outJson.vout) {	
 			let item = outJson.vout[key];			
-			outputBtc += item.value * global.coinConfig.baseCurrencyUnit.multiplier;
+			outputLtc += item.value * global.coinConfig.baseCurrencyUnit.multiplier;
 		}
 
 		outJson.fee = {
-			"amount": (inputBtc - outputBtc) / global.coinConfig.baseCurrencyUnit.multiplier,
-			"unit": "BTC"
+			"amount": (inputLtc - outputLtc) / global.coinConfig.baseCurrencyUnit.multiplier,
+			"unit": "LTC"
 		};
 
 		if (outJson.confirmations == null) {
@@ -955,7 +955,7 @@ router.get("/price/sats", function(req, res, next) {
 
 	if (!global.exchangeRates) {
 		result.success = false;
-		result.error = "You have exchange-rate requests disabled (this is the default state; in your server configuration, you must set BTCEXP_NO_RATES to 'false', and ensure that BTCEXP_PRIVACY_MODE is also still its default value of 'false')"
+		result.error = "You have exchange-rate requests disabled (this is the default state; in your server configuration, you must set LTCEXP_NO_RATES to 'false', and ensure that LTCEXP_PRIVACY_MODE is also still its default value of 'false')"
 	}
 
 	supportedCurrencies.forEach(currency => {
@@ -985,7 +985,7 @@ router.get("/price/marketcap", function(req, res, next) {
 
 	if (!global.exchangeRates) {
 		result.success = false;
-		result.error = "You have exchange-rate requests disabled (this is the default state; in your server configuration, you must set BTCEXP_NO_RATES to 'false', and ensure that BTCEXP_PRIVACY_MODE is also still its default value of 'false')"
+		result.error = "You have exchange-rate requests disabled (this is the default state; in your server configuration, you must set LTCEXP_NO_RATES to 'false', and ensure that LTCEXP_PRIVACY_MODE is also still its default value of 'false')"
 	}
 	
 	coreApi.getBlockchainInfo().then(function(getblockchaininfo){
@@ -1024,7 +1024,7 @@ router.get("/price", function(req, res, next) {
 
 	if (!global.exchangeRates) {
 		result.success = false;
-		result.error = "You have exchange-rate requests disabled (this is the default state; in your server configuration, you must set BTCEXP_NO_RATES to 'false', and ensure that BTCEXP_PRIVACY_MODE is also still its default value of 'false')"
+		result.error = "You have exchange-rate requests disabled (this is the default state; in your server configuration, you must set LTCEXP_NO_RATES to 'false', and ensure that LTCEXP_PRIVACY_MODE is also still its default value of 'false')"
 	}
 	
 	supportedCurrencies.forEach(currency => {
@@ -1057,14 +1057,14 @@ router.get("/price", function(req, res, next) {
 /// FUN
 
 router.get("/quotes/random", function(req, res, next) {
-	let index = utils.randomInt(0, btcQuotes.items.length);
+	let index = utils.randomInt(0, ltcQuotes.items.length);
 
 	let quote = null;
 	let done = false;
 
 	while (!done) {
-		let quoteIndex = utils.randomInt(0, btcQuotes.items.length);
-		quote = btcQuotes.items[quoteIndex];
+		let quoteIndex = utils.randomInt(0, ltcQuotes.items.length);
+		quote = ltcQuotes.items[quoteIndex];
 
 		done = !utils.objHasProperty(quote, "duplicateIndex");
 	}
@@ -1075,7 +1075,7 @@ router.get("/quotes/random", function(req, res, next) {
 });
 
 router.get("/quotes/all", function(req, res, next) {
-	res.json(btcQuotes.items);
+	res.json(ltcQuotes.items);
 
 	next();
 });
@@ -1087,13 +1087,13 @@ router.get("/quotes/:quoteIndex", function(req, res, next) {
 
 	let index = parseInt(req.params.quoteIndex);
 	
-	res.json(btcQuotes.items[index]);
+	res.json(ltcQuotes.items[index]);
 
 	next();
 });
 
 router.get("/holidays/all", function(req, res, next) {
-	res.json(global.btcHolidays.sortedItems);
+	res.json(global.ltcHolidays.sortedItems);
 
 	next();
 });
@@ -1105,8 +1105,8 @@ router.get("/holidays/today", function(req, res, next) {
 	}
 
 	let day = momentObj.format("MM-DD");
-	if (global.btcHolidays.byDay[day]) {
-		res.json({day: day, holidays: global.btcHolidays.byDay[day]});
+	if (global.ltcHolidays.byDay[day]) {
+		res.json({day: day, holidays: global.ltcHolidays.byDay[day]});
 
 	} else {
 		res.json({day: day, holidays: []});
@@ -1130,8 +1130,8 @@ router.get("/holidays/:day", function(req, res, next) {
 		// already correct format
 	}
 	
-	if (global.btcHolidays.byDay[day]) {
-		res.json({day: day, holidays: global.btcHolidays.byDay[day]});
+	if (global.ltcHolidays.byDay[day]) {
+		res.json({day: day, holidays: global.ltcHolidays.byDay[day]});
 
 	} else {
 		res.json({day: day, holidays: []});

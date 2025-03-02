@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require("debug");
-const debugLog = debug("btcexp:router");
+const debugLog = debug("ltcexp:router");
 
 const express = require('express');
 const router = express.Router();
@@ -19,7 +19,7 @@ const coins = require("./../app/coins.js");
 const config = require("./../app/config.js");
 const coreApi = require("./../app/api/coreApi.js");
 const addressApi = require("./../app/api/addressApi.js");
-const btcQuotes = require("./../app/coins/btcQuotes.js");
+const ltcQuotes = require("./../app/coins/ltcQuotes.js");
 
 
 
@@ -37,8 +37,8 @@ router.get("/quote/random", function(req, res, next) {
 	let done = false;
 
 	while (!done) {
-		res.locals.quoteIndex = utils.randomInt(0, btcQuotes.items.length);
-		res.locals.quote = btcQuotes.items[res.locals.quoteIndex];
+		res.locals.quoteIndex = utils.randomInt(0, ltcQuotes.items.length);
+		res.locals.quote = ltcQuotes.items[res.locals.quoteIndex];
 
 		done = !utils.objHasProperty(res.locals.quote, "duplicateIndex");
 	}

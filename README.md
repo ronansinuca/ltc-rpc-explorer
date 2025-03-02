@@ -27,7 +27,7 @@ Live demos:
 * View details of blocks, transactions, and addresses
 * Analysis tools for viewing stats on blocks, transactions, and miner activity
 * JSON REST API
-* See raw JSON content from bitcoind used to generate most pages
+* See raw JSON content from litecoind used to generate most pages
 * Search by transaction ID, block hash/height, and address
 * Optional transaction history for addresses by querying from Electrum-protocol servers (e.g. Electrs, ElectrumX), blockchain.com, blockchair.com, or blockcypher.com
 * Mempool summary, with fee, size, and age breakdowns
@@ -113,7 +113,7 @@ In either case, refer to [.env-sample](.env-sample) for a list of the options an
 For configuring with CLI arguments, run `btc-rpc-explorer --help` for the full list of options. An example execution is:
 
 ```bash
-btc-rpc-explorer --port 8080 --bitcoind-port 18443 --bitcoind-cookie ~/.bitcoin/regtest/.cookie
+btc-rpc-explorer --port 8080 --litecoind-port 18443 --litecoind-cookie ~/.bitcoin/regtest/.cookie
 ```
 
 #### Demo site settings

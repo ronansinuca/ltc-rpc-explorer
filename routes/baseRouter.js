@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require("debug");
-const debugLog = debug("btcexp:router");
+const debugLog = debug("ltcexp:router");
 
 const express = require('express');
 const csrfApi = require('csurf');
@@ -26,7 +26,7 @@ const config = require("./../app/config.js");
 const coreApi = require("./../app/api/coreApi.js");
 const addressApi = require("./../app/api/addressApi.js");
 const rpcApi = require("./../app/api/rpcApi.js");
-const btcQuotes = require("./../app/coins/btcQuotes.js");
+const ltcQuotes = require("./../app/coins/ltcQuotes.js");
 
 const forceCsrf = csrfApi({ ignoreMethods: [] });
 
@@ -385,7 +385,7 @@ router.post("/connect", function(req, res, next) {
 	req.session.port = port;
 	req.session.username = username;
 
-	let newClient = new bitcoinCore({
+	let newClient = new litecoinCore({
 		host: host,
 		port: port,
 		username: username,
@@ -832,7 +832,7 @@ router.get("/xyzpub/:extendedPubkey", asyncHandler(async (req, res, next) => {
 }));
 
 router.get("/block-stats", asyncHandler(async (req, res, next) => {
-	if (semver.lt(global.btcNodeSemver, rpcApi.minRpcVersions.getblockstats)) {
+	if (semver.lt(global.ltcNodeSemver, rpcApi.minRpcVersions.getblockstats)) {
 		res.locals.rpcApiUnsupportedError = {rpc:"getblockstats", version:rpcApi.minRpcVersions.getblockstats};
 	}
 
@@ -1101,7 +1101,7 @@ router.get("/block-height/:blockHeight", asyncHandler(async (req, res, next) => 
 				res.locals.metaDesc = "";
 			}
 		} else {
-			res.locals.metaTitle = `Bitcoin Block #${blockHeight.toLocaleString()}`;
+			res.locals.metaTitle = `Litecoin Block #${blockHeight.toLocaleString()}`;
 			res.locals.metaDesc = "";
 		}
 		
@@ -1203,7 +1203,7 @@ router.get("/block/:blockHash", asyncHandler(async (req, res, next) => {
 			}
 
 		} else {
-			res.locals.metaTitle = `Bitcoin Block ${utils.ellipsizeMiddle(res.locals.result.getblock.hash, 16)}`;
+			res.locals.metaTitle = `Litecoin Block ${utils.ellipsizeMiddle(res.locals.result.getblock.hash, 16)}`;
 			res.locals.metaDesc = "";
 		}
 
@@ -1449,7 +1449,7 @@ router.get("/tx/:transactionId", asyncHandler(async (req, res, next) => {
 				res.locals.metaDesc = "";
 			}
 		} else {
-			res.locals.metaTitle = `Bitcoin Transaction ${utils.ellipsizeMiddle(txid, 16)}`;
+			res.locals.metaTitle = `Litecoin Transaction ${utils.ellipsizeMiddle(txid, 16)}`;
 			res.locals.metaDesc = "";
 		}
 
@@ -1522,7 +1522,7 @@ router.get("/address/:address", asyncHandler(async (req, res, next) => {
 		}
 
 
-		res.locals.metaTitle = `Bitcoin Address ${address}`;
+		res.locals.metaTitle = `Litecoin Address ${address}`;
 
 		res.locals.address = address;
 		res.locals.limit = limit;
@@ -1805,7 +1805,7 @@ router.get("/next-halving", asyncHandler(async (req, res, next) => {
 
 router.get("/rpc-terminal", function(req, res, next) {
 	if (!config.demoSite && !req.authenticated) {
-		res.send("RPC Terminal / Browser require authentication. Set an authentication password via the 'BTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).");
+		res.send("RPC Terminal / Browser require authentication. Set an authentication password via the 'LTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).");
 		
 		next();
 
@@ -1819,7 +1819,7 @@ router.get("/rpc-terminal", function(req, res, next) {
 
 router.post("/rpc-terminal", asyncHandler(async (req, res, next) => {
 	if (!config.demoSite && !req.authenticated) {
-		res.send("RPC Terminal / Browser require authentication. Set an authentication password via the 'BTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).");
+		res.send("RPC Terminal / Browser require authentication. Set an authentication password via the 'LTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).");
 
 		next();
 
@@ -1879,7 +1879,7 @@ router.post("/rpc-terminal", asyncHandler(async (req, res, next) => {
 
 router.get("/rpc-browser", asyncHandler(async (req, res, next) => {
 	if (!config.demoSite && !req.authenticated) {
-		res.send("RPC Terminal / Browser require authentication. Set an authentication password via the 'BTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).");
+		res.send("RPC Terminal / Browser require authentication. Set an authentication password via the 'LTCEXP_BASIC_AUTH_PASSWORD' environment variable (see .env-sample file for more info).");
 
 		next();
 
@@ -2343,7 +2343,7 @@ router.get("/quotes", function(req, res, next) {
 		viewType = req.query.viewType;
 	}
 
-	let listNewFirst = btcQuotes.items;
+	let listNewFirst = ltcQuotes.items;
 	for (let i = 0; i < listNewFirst.length; i++) {
 		listNewFirst[i].quoteIndex = i;
 	}
@@ -2412,7 +2412,7 @@ router.get("/quotes", function(req, res, next) {
 });
 
 router.get("/holidays", function(req, res, next) {
-	res.locals.btcHolidays = global.btcHolidays;
+	res.locals.ltcHolidays = global.ltcHolidays;
 
 	res.render("holidays");
 
@@ -2421,10 +2421,10 @@ router.get("/holidays", function(req, res, next) {
 
 router.get("/quote/:quoteIndex", function(req, res, next) {
 	res.locals.quoteIndex = parseInt(req.params.quoteIndex);
-	res.locals.btcQuotes = btcQuotes.items;
+	res.locals.ltcQuotes = ltcQuotes.items;
 
-	if (btcQuotes.items[res.locals.quoteIndex].duplicateIndex) {
-		let duplicateIndex = btcQuotes.items[res.locals.quoteIndex].duplicateIndex;
+	if (ltcQuotes.items[res.locals.quoteIndex].duplicateIndex) {
+		let duplicateIndex = ltcQuotes.items[res.locals.quoteIndex].duplicateIndex;
 
 		res.redirect(`${config.baseUrl}quote/${duplicateIndex}`);
 

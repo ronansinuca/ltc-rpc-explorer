@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require("debug");
-const debugLog = debug("btcexp:router");
+const debugLog = debug("ltcexp:router");
 
 const express = require('express');
 const router = express.Router();
@@ -20,7 +20,7 @@ const config = require("./../app/config.js");
 const coreApi = require("./../app/api/coreApi.js");
 const addressApi = require("./../app/api/addressApi.js");
 const rpcApi = require("./../app/api/rpcApi.js");
-const btcQuotes = require("./../app/coins/btcQuotes.js");
+const ltcQuotes = require("./../app/coins/ltcQuotes.js");
 
 
 router.get("/tx-display", asyncHandler(async (req, res, next) => {

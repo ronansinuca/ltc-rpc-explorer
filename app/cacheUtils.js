@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require("debug");
-const debugLog = debug("btcexp:cache");
+const debugLog = debug("ltcexp:cache");
 
 const utils = require("./utils.js");
 

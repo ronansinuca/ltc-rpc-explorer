@@ -3,7 +3,7 @@
 const Decimal = require("decimal.js");
 const Decimal8 = Decimal.clone({ precision:8, rounding:8 });
 
-const btcFun = require("./btcFun.js");
+const ltcFun = require("./ltcFun.js");
 
 const blockRewardEras = [ new Decimal8(50) ];
 for (let i = 1; i < 34; i++) {
@@ -14,17 +14,17 @@ for (let i = 1; i < 34; i++) {
 const currencyUnits = [
 	{
 		type:"native",
-		name:"BTC",
+		name:"LTC",
 		multiplier:1,
 		default:true,
-		values:["", "btc", "BTC"],
+		values:["", "ltc", "LTC"],
 		decimalPlaces:8
 	},
 	{
 		type:"native",
-		name:"mBTC",
+		name:"LTC",
 		multiplier:1000,
-		values:["mbtc"],
+		values:["mltc"],
 		decimalPlaces:5
 	},
 	{
@@ -60,8 +60,8 @@ const currencyUnits = [
 ];
 
 module.exports = {
-	name:"Bitcoin",
-	ticker:"BTC",
+	name:"Litecoin",
+	ticker:"LTC",
 	logoUrlsByNetwork:{
 		"main":"./img/network-mainnet/logo.svg",
 		"test":"./img/network-testnet/logo.svg",
@@ -81,7 +81,7 @@ module.exports = {
 		"regtest": "#777"
 	},
 	siteTitlesByNetwork: {
-		"main":"Bitcoin Explorer",
+		"main":"Litecoin Explorer",
 		"test":"Testnet Explorer",
 		"regtest":"Regtest Explorer",
 		"signet":"Signet Explorer",
@@ -116,7 +116,7 @@ module.exports = {
 	targetBlockTimeSeconds: 600,
 	targetBlockTimeMinutes: 10,
 	currencyUnits:currencyUnits,
-	currencyUnitsByName:{"BTC":currencyUnits[0], "mBTC":currencyUnits[1], "bits":currencyUnits[2], "sat":currencyUnits[3]},
+	currencyUnitsByName:{"LTC":currencyUnits[0], "mLTC":currencyUnits[1], "bits":currencyUnits[2], "sat":currencyUnits[3]},
 	baseCurrencyUnit:currencyUnits[3],
 	defaultCurrencyUnit:currencyUnits[0],
 	feeSatoshiPerByteBucketMaxima: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 50, 75, 100, 150],
@@ -523,7 +523,7 @@ module.exports = {
 		}
 	},
 	genesisCoinbaseOutputAddressScripthash:"8b01df4e368ea28f8dc0423bcf7a4923e3a12d307c875e47a0cfbf90b5c39161",
-	historicalData: btcFun.items,
+	historicalData: ltcFun.items,
 	exchangeRateData:{
 		jsonUrl:"https://api.coindesk.com/v1/bpi/currentprice.json",
 		responseBodySelectorFunction:function(responseBody) {

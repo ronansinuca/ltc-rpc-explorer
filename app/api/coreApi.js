@@ -1,7 +1,7 @@
 "use strict";
 
 const debug = require("debug");
-const debugLog = debug("btcexp:core");
+const debugLog = debug("ltcexp:core");
 
 const fs = require('fs');
 
@@ -121,7 +121,7 @@ if (redisCache.active) {
 	}
 
 	// md5 of the active RPC credentials serves as part of the key; this enables
-	// multiple instances of btc-rpc-explorer (eg mainnet + testnet) to share
+	// multiple instances of ltc-rpc-explorer (eg mainnet + testnet) to share
 	// a single redis instance peacefully
 	const rpcHostPort = `${config.credentials.rpc.host}:${config.credentials.rpc.port}`;
 	const rpcCredKeyComponent = md5(JSON.stringify(config.credentials.rpc)).substring(0, 8);
@@ -425,7 +425,7 @@ async function getNextBlockEstimate() {
 
 	const subsidy = coinConfig.blockRewardFunction(blockTemplate.height, global.activeBlockchain);
 
-	const totalFees = new Decimal(blockTemplate.coinbasevalue).dividedBy(SATS_PER_BTC).minus(new Decimal(subsidy));
+	const totalFees = new Decimal(blockTemplate.coinbasevalue).dividedBy(SATS_PER_LTC).minus(new Decimal(subsidy));
 
 	return {
 		blockTemplate: blockTemplate,
@@ -1472,8 +1472,8 @@ function getMempoolTxSummaries(allTxids, statusId, statusFunc) {
 			const results = [];
 			const txidKeysForCachePurge = {};
 
-			const btcToSat = (btcFloat) => {
-				return parseInt(new Decimal(btcFloat).times(SATS_PER_BTC).toDP(0));
+			const ltcToSat = (ltcFloat) => {
+				return parseInt(new Decimal(ltcFloat).times(SATS_PER_LTC).toDP(0));
 			};
 
 			for (let i = 0; i < txids.length; i++) {
@@ -1495,9 +1495,9 @@ function getMempoolTxSummaries(allTxids, statusId, statusFunc) {
 						try {
 							const item = await getMempoolTxDetails(txid, false);
 							const itemSummary = {
-								f: btcToSat(item.entry.fees.modified),
+								f: ltcToSat(item.entry.fees.modified),
 								
-								af: btcToSat(item.entry.fees.ancestor),
+								af: ltcToSat(item.entry.fees.ancestor),
 								asz: item.entry.ancestorsize,
 
 								a: item.entry.depends.map(x => mempoolCacheKeyForTxid(x)),
@@ -1781,15 +1781,15 @@ function buildMempoolSummary(statusId, ageBuckets, sizeBuckets, statusFunc) {
 				let fee = txMempoolInfo.f;
 				let size = txMempoolInfo.w / 4;
 				let weight = txMempoolInfo.w;
-				let feePerByte = new Decimal(txMempoolInfo.f).dividedBy(SATS_PER_BTC).toNumber() / weight;
-				let satoshiPerByte = feePerByte * SATS_PER_BTC;
+				let feePerByte = new Decimal(txMempoolInfo.f).dividedBy(SATS_PER_LTC).toNumber() / weight;
+				let satoshiPerByte = feePerByte * SATS_PER_LTC;
 				let age = Date.now() / 1000 - txMempoolInfo.t;
 
 				let addedToBucket = false;
 				for (let i = 0; i < satoshiPerByteBuckets.length; i++) {
 					if (satoshiPerByteBuckets[i].maxFeeRate > satoshiPerByte) {
 						satoshiPerByteBuckets[i]["count"]++;
-						satoshiPerByteBuckets[i]["totalFees"] = satoshiPerByteBuckets[i]["totalFees"].plus(new Decimal(fee).dividedBy(SATS_PER_BTC));
+						satoshiPerByteBuckets[i]["totalFees"] = satoshiPerByteBuckets[i]["totalFees"].plus(new Decimal(fee).dividedBy(SATS_PER_LTC));
 						satoshiPerByteBuckets[i]["totalBytes"] += size;
 						satoshiPerByteBuckets[i]["totalWeight"] += weight;
 
@@ -1801,13 +1801,13 @@ function buildMempoolSummary(statusId, ageBuckets, sizeBuckets, statusFunc) {
 
 				if (!addedToBucket) {
 					satoshiPerByteBuckets[bucketCount - 2]["count"]++;
-					satoshiPerByteBuckets[bucketCount - 2]["totalFees"] = satoshiPerByteBuckets[bucketCount - 2]["totalFees"].plus(new Decimal(fee).dividedBy(SATS_PER_BTC));
+					satoshiPerByteBuckets[bucketCount - 2]["totalFees"] = satoshiPerByteBuckets[bucketCount - 2]["totalFees"].plus(new Decimal(fee).dividedBy(SATS_PER_LTC));
 					satoshiPerByteBuckets[bucketCount - 2]["totalBytes"] += size;
 					satoshiPerByteBuckets[bucketCount - 2]["totalWeight"] += weight;
 				}
 
 				summary["count"]++;
-				summary["totalFees"] = summary.totalFees.plus(new Decimal(fee).dividedBy(SATS_PER_BTC));
+				summary["totalFees"] = summary.totalFees.plus(new Decimal(fee).dividedBy(SATS_PER_LTC));
 				summary["totalBytes"] += size;
 				summary["totalWeight"] += weight;
 

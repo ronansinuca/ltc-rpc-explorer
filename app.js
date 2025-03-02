@@ -11,18 +11,18 @@ const debug = require("debug");
 
 
 // start with this, we will update after loading any .env files
-const debugDefaultCategories = "btcexp:app,btcexp:error,btcexp:errorVerbose";
+const debugDefaultCategories = "ltcexp:app,ltcexp:error,ltcexp:errorVerbose";
 debug.enable(debugDefaultCategories);
 
 
-const debugLog = debug("btcexp:app");
-const debugErrorLog = debug("btcexp:error");
-const debugPerfLog = debug("btcexp:actionPerformace");
-const debugAccessLog = debug("btcexp:access");
+const debugLog = debug("ltcexp:app");
+const debugErrorLog = debug("ltcexp:error");
+const debugPerfLog = debug("ltcexp:actionPerformace");
+const debugAccessLog = debug("ltcexp:access");
 
 const configPaths = [
-	path.join(os.homedir(), ".config", "btc-rpc-explorer.env"),
-	path.join("/etc", "btc-rpc-explorer", ".env"),
+	path.join(os.homedir(), ".config", "ltc-rpc-explorer.env"),
+	path.join("/etc", "ltc-rpc-explorer", ".env"),
 	path.join(process.cwd(), ".env"),
 ];
 
@@ -90,8 +90,8 @@ const qrcode = require("qrcode");
 const addressApi = require("./app/api/addressApi.js");
 const electrumAddressApi = require("./app/api/electrumAddressApi.js");
 const appStats = require("./app/appStats.js");
-const btcQuotes = require("./app/coins/btcQuotes.js");
-const btcHolidays = require("./app/coins/btcHolidays.js");
+const ltcQuotes = require("./app/coins/ltcQuotes.js");
+const ltcHolidays = require("./app/coins/ltcHolidays.js");
 const auth = require('./app/auth.js');
 const sso = require('./app/sso.js');
 const markdown = require("markdown-it")();
@@ -116,7 +116,7 @@ global.appVersion = package_json.version;
 global.cacheId = global.appVersion;
 debugLog(`Default cacheId '${global.cacheId}'`);
 
-global.btcNodeSemver = "0.0.0";
+global.ltcNodeSemver = "0.0.0";
 
 
 const cleanupRouter = require('./routes/cleanupRouter.js');
@@ -194,13 +194,13 @@ expressApp.use(cookieParser());
 expressApp.disable('x-powered-by');
 
 
-if (process.env.BTCEXP_BASIC_AUTH_PASSWORD) {
+if (process.env.LTCEXP_BASIC_AUTH_PASSWORD) {
 	// basic http authentication
-	expressApp.use(auth(process.env.BTCEXP_BASIC_AUTH_PASSWORD));
+	expressApp.use(auth(process.env.LTCEXP_BASIC_AUTH_PASSWORD));
 
-} else if (process.env.BTCEXP_SSO_TOKEN_FILE) {
+} else if (process.env.LTCEXP_SSO_TOKEN_FILE) {
 	// sso authentication
-	expressApp.use(sso(process.env.BTCEXP_SSO_TOKEN_FILE, process.env.BTCEXP_SSO_LOGIN_REDIRECT_URL));
+	expressApp.use(sso(process.env.LTCEXP_SSO_TOKEN_FILE, process.env.LTCEXP_SSO_LOGIN_REDIRECT_URL));
 }
 
 // uncomment after placing your favicon in /public
@@ -390,7 +390,7 @@ function loadMiningPoolConfigs() {
 
 async function getSourcecodeProjectMetadata() {
 	var options = {
-		url: "https://api.github.com/repos/janoside/btc-rpc-explorer",
+		url: "https://api.github.com/repos/janoside/ltc-rpc-explorer",
 		headers: {
 			'User-Agent': 'request'
 		}
@@ -453,25 +453,25 @@ function loadHistoricalDataForChain(chain) {
 function loadHolidays(chain) {
 	debugLog(`Loading holiday data`);
 
-	global.btcHolidays = btcHolidays;
-	global.btcHolidays.byDay = {};
-	global.btcHolidays.sortedDays = [];
-	global.btcHolidays.sortedItems = [...btcHolidays.items];
-	global.btcHolidays.sortedItems.sort((a, b) => a.date.localeCompare(b.date));
+	global.ltcHolidays = ltcHolidays;
+	global.ltcHolidays.byDay = {};
+	global.ltcHolidays.sortedDays = [];
+	global.ltcHolidays.sortedItems = [...ltcHolidays.items];
+	global.ltcHolidays.sortedItems.sort((a, b) => a.date.localeCompare(b.date));
 
-	global.btcHolidays.items.forEach(function(item) {
+	global.ltcHolidays.items.forEach(function(item) {
 		let day = item.date.substring(5);
 
-		if (!global.btcHolidays.sortedDays.includes(day)) {
-			global.btcHolidays.sortedDays.push(day);
-			global.btcHolidays.sortedDays.sort();
+		if (!global.ltcHolidays.sortedDays.includes(day)) {
+			global.ltcHolidays.sortedDays.push(day);
+			global.ltcHolidays.sortedDays.sort();
 		}
 
-		if (global.btcHolidays.byDay[day] == undefined) {
-			global.btcHolidays.byDay[day] = [];
+		if (global.ltcHolidays.byDay[day] == undefined) {
+			global.ltcHolidays.byDay[day] = [];
 		}
 
-		global.btcHolidays.byDay[day].push(item);
+		global.ltcHolidays.byDay[day].push(item);
 	});
 }
 
@@ -513,15 +513,15 @@ async function onRpcConnectionVerified(getnetworkinfo, getblockchaininfo) {
 		global.pruneHeight = getblockchaininfo.pruneheight;
 	}
 
-	var bitcoinCoreVersionRegex = /^.*\/Satoshi\:(.*)\/.*$/;
+	var litecoinCoreVersionRegex = /^.*\/Satoshi\:(.*)\/.*$/;
 
-	var match = bitcoinCoreVersionRegex.exec(getnetworkinfo.subversion);
+	var match = litecoinCoreVersionRegex.exec(getnetworkinfo.subversion);
 	if (match) {
-		global.btcNodeVersion = match[1];
+		global.ltcNodeVersion = match[1];
 
 		var semver4PartRegex = /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$/;
 
-		var semver4PartMatch = semver4PartRegex.exec(global.btcNodeVersion);
+		var semver4PartMatch = semver4PartRegex.exec(global.ltcNodeVersion);
 		if (semver4PartMatch) {
 			var p0 = semver4PartMatch[1];
 			var p1 = semver4PartMatch[2];
@@ -529,32 +529,32 @@ async function onRpcConnectionVerified(getnetworkinfo, getblockchaininfo) {
 			var p3 = semver4PartMatch[4];
 
 			// drop last segment, which usually indicates a bug fix release which is (hopefully) irrelevant for RPC API versioning concerns
-			global.btcNodeSemver = `${p0}.${p1}.${p2}`;
+			global.ltcNodeSemver = `${p0}.${p1}.${p2}`;
 
 		} else {
 			var semver3PartRegex = /^([0-9]+)\.([0-9]+)\.([0-9]+)$/;
 
-			var semver3PartMatch = semver3PartRegex.exec(global.btcNodeVersion);
+			var semver3PartMatch = semver3PartRegex.exec(global.ltcNodeVersion);
 			if (semver3PartMatch) {
 				var p0 = semver3PartMatch[1];
 				var p1 = semver3PartMatch[2];
 				var p2 = semver3PartMatch[3];
 
-				global.btcNodeSemver = `${p0}.${p1}.${p2}`;
+				global.ltcNodeSemver = `${p0}.${p1}.${p2}`;
 
 			} else {
 				// short-circuit: force all RPC calls to pass their version checks - this will likely lead to errors / instability / unexpected results
-				global.btcNodeSemver = "1000.1000.0"
+				global.ltcNodeSemver = "1000.1000.0"
 			}
 		}
 	} else {
 		// short-circuit: force all RPC calls to pass their version checks - this will likely lead to errors / instability / unexpected results
-		global.btcNodeSemver = "1000.1000.0"
+		global.ltcNodeSemver = "1000.1000.0"
 
-		debugErrorLog(`Unable to parse node version string: ${getnetworkinfo.subversion} - RPC versioning will likely be unreliable. Is your node a version of Bitcoin Core?`);
+		debugErrorLog(`Unable to parse node version string: ${getnetworkinfo.subversion} - RPC versioning will likely be unreliable. Is your node a version of Litecoin Core?`);
 	}
 	
-	debugLog(`RPC Connected: version=${getnetworkinfo.version} subversion=${getnetworkinfo.subversion}, parsedVersion(used for RPC versioning)=${global.btcNodeSemver}, protocolversion=${getnetworkinfo.protocolversion}, chain=${getblockchaininfo.chain}, services=${services}`);
+	debugLog(`RPC Connected: version=${getnetworkinfo.version} subversion=${getnetworkinfo.subversion}, parsedVersion(used for RPC versioning)=${global.ltcNodeSemver}, protocolversion=${getnetworkinfo.protocolversion}, chain=${getblockchaininfo.chain}, services=${services}`);
 
 	
 	// load historical/fun items for this chain
@@ -803,7 +803,7 @@ function refreshNetworkVolumes() {
 				debugLog(`Network volume: ${JSON.stringify(global.networkVolume)}`);
 
 			} else {
-				debugLog("Unable to load network volume, likely due to bitcoind version older than 0.17.0 (the first version to support getblockstats).");
+				debugLog("Unable to load network volume, likely due to litecoind version older than 0.17.0 (the first version to support getblockstats).");
 			}
 		});
 	});
@@ -817,7 +817,7 @@ expressApp.onStartup = async () => {
 	global.coinConfig = coins[config.coin];
 	global.coinConfigs = coins;
 
-	global.SATS_PER_BTC = global.coinConfig.baseCurrencyUnit.multiplier;
+	global.SATS_PER_LTC = global.coinConfig.baseCurrencyUnit.multiplier;
 
 	global.specialTransactions = {};
 	global.specialBlocks = {};
@@ -945,7 +945,7 @@ expressApp.onStartup = async () => {
 function connectToRpcServer() {
 	// reload credentials, the main "config.credentials.rpc" can be stale
 	// since the username/password can be sourced from the auth cookie
-	// which changes each startup of bitcoind
+	// which changes each startup of litecoind
 	let credentialsForRpcConnect = config.credentials.loadFreshRpcCredentials();
 
 	debugLog(`RPC Credentials: ${JSON.stringify(utils.obfuscateProperties(credentialsForRpcConnect, ["password"]), null, 4)}`);
@@ -1019,7 +1019,7 @@ expressApp.continueStartup = function() {
 	if (config.addressApi) {
 		let supportedAddressApis = addressApi.getSupportedAddressApis();
 		if (!supportedAddressApis.includes(config.addressApi)) {
-			utils.logError("32907ghsd0ge", `Unrecognized value for BTCEXP_ADDRESS_API: '${config.addressApi}'. Valid options are: ${supportedAddressApis}`);
+			utils.logError("32907ghsd0ge", `Unrecognized value for LTCEXP_ADDRESS_API: '${config.addressApi}'. Valid options are: ${supportedAddressApis}`);
 		}
 
 		if (config.addressApi == "electrum" || config.addressApi == "electrumx") {
@@ -1031,7 +1031,7 @@ expressApp.continueStartup = function() {
 					utils.logError("31207ugf4e0fed", err, {electrumServers:config.electrumServers});
 				});
 			} else {
-				utils.logError("327hs0gde", "You must set the 'BTCEXP_ELECTRUM_SERVERS' environment variable when BTCEXP_ADDRESS_API=electrum.");
+				utils.logError("327hs0gde", "You must set the 'LTCEXP_ELECTRUM_SERVERS' environment variable when LTCEXP_ADDRESS_API=electrum.");
 			}
 		}
 	}

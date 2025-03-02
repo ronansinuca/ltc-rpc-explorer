@@ -6,19 +6,19 @@ const url = require('url');
 const fs = require("fs");
 
 const debug = require("debug");
-const debugLog = debug("btcexp:config");
+const debugLog = debug("ltcexp:config");
 
-const btcUri = process.env.BTCEXP_BITCOIND_URI ? url.parse(process.env.BTCEXP_BITCOIND_URI, true) : { query: { } };
-const btcAuth = btcUri.auth ? btcUri.auth.split(':') : [];
+const ltcUri = process.env.LTCEXP_LITECOIND_URI ? url.parse(process.env.LTCEXP_LITECOIND_URI, true) : { query: { } };
+const ltcAuth = ltcUri.auth ? ltcUri.auth.split(':') : [];
 
 
 
 
 function loadFreshRpcCredentials() {
-	let username = btcAuth[0] || process.env.BTCEXP_BITCOIND_USER;
-	let password = btcAuth[1] || process.env.BTCEXP_BITCOIND_PASS;
+	let username = ltcAuth[0] || process.env.LTCEXP_LITECOIND_USER;
+	let password = ltcAuth[1] || process.env.LTCEXP_LITECOIND_PASS;
 
-	let authCookieFilepath = btcUri.query.cookie || process.env.BTCEXP_BITCOIND_COOKIE || path.join(os.homedir(), '.bitcoin', '.cookie');
+	let authCookieFilepath = ltcUri.query.cookie || process.env.LTCEXP_LITECOIND_COOKIE || path.join(os.homedir(), '.litecoin', '.cookie');
 
 	let authType = "usernamePassword";
 
@@ -37,8 +37,8 @@ function loadFreshRpcCredentials() {
 	}
 
 	return {
-		host: btcUri.hostname || process.env.BTCEXP_BITCOIND_HOST || "127.0.0.1",
-		port: btcUri.port || process.env.BTCEXP_BITCOIND_PORT || 8332,
+		host: ltcUri.hostname || process.env.LTCEXP_LITECOIND_HOST || "127.0.0.1",
+		port: ltcUri.port || process.env.LTCEXP_LITECOIND_PORT || 9332,
 
 		authType: authType,
 
@@ -47,7 +47,7 @@ function loadFreshRpcCredentials() {
 		
 		authCookieFilepath: authCookieFilepath,
 		
-		timeout: parseInt(btcUri.query.timeout || process.env.BTCEXP_BITCOIND_RPC_TIMEOUT || 5000),
+		timeout: parseInt(ltcUri.query.timeout || process.env.LTCEXP_LITECOIND_RPC_TIMEOUT || 5000),
 	};
 }
 
@@ -60,19 +60,19 @@ module.exports = {
 	// to include a map of the estimated locations of your node's
 	// peers
 	// format: "ID_FROM_IPSTACK"
-	ipStackComApiAccessKey: process.env.BTCEXP_IPSTACK_APIKEY,
+	ipStackComApiAccessKey: process.env.LTCEXP_IPSTACK_APIKEY,
 
 	// optional: enter your api access key from mapbox.com below
 	// to enable the tiles for map of the estimated locations of
 	// your node's peers
 	// format: "APIKEY_FROM_MAPBOX"
-	mapBoxComApiAccessKey: process.env.BTCEXP_MAPBOX_APIKEY,
+	mapBoxComApiAccessKey: process.env.LTCEXP_MAPBOX_APIKEY,
 
 	// optional: GA tracking code
 	// format: "UA-..."
-	googleAnalyticsTrackingId: process.env.BTCEXP_GANALYTICS_TRACKING,
+	googleAnalyticsTrackingId: process.env.LTCEXP_GANALYTICS_TRACKING,
 
 	// optional: sentry.io error-tracking url
 	// format: "SENTRY_IO_URL"
-	sentryUrl: process.env.BTCEXP_SENTRY_URL,
+	sentryUrl: process.env.LTCEXP_SENTRY_URL,
 };

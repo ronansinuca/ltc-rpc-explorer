@@ -1,7 +1,7 @@
 {
-	"name": "btc-rpc-explorer",
+	"name": "ltc-rpc-explorer",
 	"version": "3.4.0",
-	"description": "Open-source, self-hosted Bitcoin explorer",
+	"description": "Open-source, self-hosted Litecoin explorer",
 	"private": false,
 	"bin": "bin/cli.js",
 	"scripts": {
@@ -20,15 +20,15 @@
 		"css": "npm run css-light && npm run css-dark && npm run css-dark-v1 && npm run integrity"
 	},
 	"keywords": [
-		"bitcoin",
-		"btc",
+		"litecoin",
+		"ltc",
 		"blockchain"
 	],
 	"author": "Dan Janosik <dan@47.io>",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/janoside/btc-rpc-explorer.git"
+		"url": "git+https://github.com/tech1k/ltc-rpc-explorer.git"
 	},
 	"dependencies": {
 		"@janoside/app-utils": "github:janoside/app-utils#ba4c23d3f",

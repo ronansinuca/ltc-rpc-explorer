@@ -1,34 +1,34 @@
 #!/usr/bin/env node
 
 var debug = require("debug");
-var debugLog = debug("btcexp:config");
+var debugLog = debug("ltcexp:config");
 
 // to debug arg settings, enable the below line:
-//debug.enable("btcexp:*");
+//debug.enable("ltcexp:*");
 
 const args = require('meow')(`
 	Usage
-	  $ btc-rpc-explorer [options]
+	  $ ltc-rpc-explorer [options]
 
 	Options
 	  -p, --port <port>			  port to bind http server [default: 3002]
 	  -i, --host <host>			  host to bind http server [default: 127.0.0.1]
 	  -a, --basic-auth-password <..> protect web interface with a password [default: no password]
-	  -C, --coin <coin>			  crypto-coin to enable [default: BTC]
+	  -C, --coin <coin>			  crypto-coin to enable [default: LTC]
 
-	  -b, --bitcoind-uri <uri>	   connection URI for bitcoind rpc (overrides the options below)
-	  -H, --bitcoind-host <host>	 hostname for bitcoind rpc [default: 127.0.0.1]
-	  -P, --bitcoind-port <port>	 port for bitcoind rpc [default: 8332]
-	  -c, --bitcoind-cookie <path>   path to bitcoind cookie file [default: ~/.bitcoin/.cookie]
-	  -u, --bitcoind-user <user>	 username for bitcoind rpc [default: none]
-	  -w, --bitcoind-pass <pass>	 password for bitcoind rpc [default: none]
+	  -b, --litecoind-uri <uri>	   connection URI for litecoind rpc (overrides the options below)
+	  -H, --litecoind-host <host>	 hostname for litecoind rpc [default: 127.0.0.1]
+	  -P, --litecoind-port <port>	 port for litecoind rpc [default: 9332]
+	  -c, --litecoind-cookie <path>   path to litecoind cookie file [default: ~/.litecoin/.cookie]
+	  -u, --litecoind-user <user>	 username for litecoind rpc [default: none]
+	  -w, --litecoind-pass <pass>	 password for litecoind rpc [default: none]
 
 	  --address-api <option>		 api to use for address queries (options: electrum, blockchain.com, blockchair.com, blockcypher.com) [default: none]
 	  -E, --electrum-servers <..>   comma separated list of electrum servers to use for address queries; only used if --address-api=electrum [default: none]
 
 	  --rpc-allowall				 allow all rpc commands [default: false]
 	  --rpc-blacklist <methods>	  comma separated list of rpc commands to block [default: see in config.js]
-	  --cookie-secret <secret>	   secret key for signed cookie hmac generation [default: hmac derive from bitcoind pass]
+	  --cookie-secret <secret>	   secret key for signed cookie hmac generation [default: hmac derive from litecoind pass]
 	  --demo						 enable demoSite mode [default: disabled]
 	  --no-rates					 disable fetching of currency exchange rates [default: enabled]
 	  --slow-device-mode			 disable performance-intensive tasks (e.g. UTXO set fetching) [default: enabled]
@@ -43,15 +43,15 @@ const args = require('meow')(`
 	  -v, --version				  output version number
 
 	Examples
-	  $ btc-rpc-explorer --port 8080 --bitcoind-port 18443 --bitcoind-cookie ~/.bitcoin/regtest/.cookie
-	  $ btc-rpc-explorer -p 8080 -P 18443 -c ~/.bitcoin/regtest.cookie
+	  $ ltc-rpc-explorer --port 8080 --litecoind-port 19443 --litecoind-cookie ~/.litecoin/regtest/.cookie
+	  $ ltc-rpc-explorer -p 8080 -P 19443 -c ~/.litecoin/regtest.cookie
 
 	Or using connection URIs
-	  $ btc-rpc-explorer -b bitcoin://bob:myPassword@127.0.0.1:18443/
-	  $ btc-rpc-explorer -b bitcoin://127.0.0.1:18443/?cookie=$HOME/.bitcoin/regtest/.cookie
+	  $ ltc-rpc-explorer -b litecoin://bob:myPassword@127.0.0.1:19443/
+	  $ ltc-rpc-explorer -b litecoin://127.0.0.1:19443/?cookie=$HOME/.litecoin/regtest/.cookie
 
 	All options may also be specified as environment variables
-	  $ BTCEXP_PORT=8080 BTCEXP_BITCOIND_PORT=18443 BTCEXP_BITCOIND_COOKIE=~/.bitcoin/regtest/.cookie btc-rpc-explorer
+	  $ LTCEXP_PORT=8080 LTCEXP_litecoinD_PORT=19443 LTCEXP_litecoinD_COOKIE=~/.litecoin/regtest/.cookie ltc-rpc-explorer
 
 
 `, {
@@ -60,12 +60,12 @@ const args = require('meow')(`
 			host: {alias:'i'},
 			basicAuthPassword: {alias:'a'},
 			coin: {alias:'C'},
-			bitcoindUri: {alias:'b'},
-			bitcoindHost: {alias:'H'},
-			bitcoindPort: {alias:'P'},
-			bitcoindCookie: {alias:'c'},
-			bitcoindUser: {alias:'u'},
-			bitcoindPass: {alias:'w'},
+			litecoindUri: {alias:'b'},
+			litecoindHost: {alias:'H'},
+			litecoindPort: {alias:'P'},
+			litecoindCookie: {alias:'c'},
+			litecoindUser: {alias:'u'},
+			litecoindPass: {alias:'w'},
 			demo: {},
 			rpcAllowall: {},
 			electrumServers: {alias:'E'},
@@ -80,14 +80,14 @@ const envify = k => k.replace(/([A-Z])/g, '_$1').toUpperCase();
 
 Object.keys(args).filter(k => k.length > 1).forEach(k => {
 	if (args[k] === false) {
-		debugLog(`Config(arg): BTCEXP_NO_${envify(k)}=true`);
+		debugLog(`Config(arg): LTCEXP_NO_${envify(k)}=true`);
 
-		process.env[`BTCEXP_NO_${envify(k)}`] = true;
+		process.env[`LTCEXP_NO_${envify(k)}`] = true;
 
 	} else {
-		debugLog(`Config(arg): BTCEXP_${envify(k)}=${args[k]}`);
+		debugLog(`Config(arg): LTCEXP_${envify(k)}=${args[k]}`);
 
-		process.env[`BTCEXP_${envify(k)}`] = args[k];
+		process.env[`LTCEXP_${envify(k)}`] = args[k];
 	}
 });
 
