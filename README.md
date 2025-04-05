@@ -20,9 +20,9 @@ Whatever reasons you may have for running a full node (trustlessness, technical 
 
 Please note that this is still in active development to ensure full compatibility with Litecoin, so there may be bugs or areas that need updates. However, the explorer is functional and can be used with Litecoin in its current state. Any and all contributions are much appreciated.
 
-Live demos (coming soon):
+Live demo:
 
-<!--* [LitecoinExplorer.org](https://litecoinexplorer.org)-->
+* [LitecoinExplorer.org](https://litecoinexplorer.org)
 
 
 # Features
