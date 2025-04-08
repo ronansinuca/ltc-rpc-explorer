@@ -1070,6 +1070,7 @@ function outputTypeAbbreviation(outputType) {
 		"witness_v0_keyhash": "P2WPKH",
 		"witness_v0_scripthash": "P2WSH",
 		"witness_v1_taproot": "P2TR",
+		"mweb": "MWEB",
 		"nonstandard": "nonstandard",
 		"nulldata": "nulldata"
 	};
@@ -1091,6 +1092,7 @@ function outputTypeName(outputType) {
 		"witness_v0_keyhash": "Witness, v0 Key Hash",
 		"witness_v0_scripthash": "Witness, v0 Script Hash",
 		"witness_v1_taproot": "Witness, v1 Taproot",
+		"mweb": "MWEB Confidential Transaction",
 		"nonstandard": "Non-Standard",
 		"nulldata": "Null Data"
 	};
