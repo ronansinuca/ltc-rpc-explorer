@@ -1,10 +1,18 @@
-##### v3.5.0
+##### v3.6.0-ltc
 ###### Unreleased
 
-* Tweak display of miner "notes" (disclaimer for Patoshi)
-* Fix for display of JSON-data content
-* Updated miner IDs (including removal of 3 probably false positives from the "Patoshi" list)
 * Updated dependencies
+* Fix mempool-summary bug which can cause the page to crash
+* Port xpub search to Litecoin for HD wallets
+
+
+##### v3.5.0-ltc
+###### 2025-04-09
+
+* Initial port of btc-rpc-explorer v3.4.0 to Litecoin
+
+
+---
 
 
 ##### v3.4.0
