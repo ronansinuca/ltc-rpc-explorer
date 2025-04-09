@@ -135,7 +135,7 @@ This will cause users to be redirected to your login page if needed.
 
 ## Run via Docker
 
-### Option 1: build the image locally
+### Option 1: Build the image locally
 1. `docker build -t ltc-rpc-explorer .`
 2. `docker run -it -p 3003:3003 -e LTCEXP_HOST=0.0.0.0 ltc-rpc-explorer`
 
