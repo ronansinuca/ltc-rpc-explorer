@@ -735,8 +735,8 @@ block endOfBody
 						$("#estimate-mempooldepth").text(`${Math.floor(minBlocks)} - ${Math.ceil(maxBlocks)}`);
 					}
 					
-					var minMinutes = minBlocks.times(10); // TODO: magic number: 10min
-					var maxMinutes = maxBlocks.times(10); // TODO: magic number: 10 min
+					var minMinutes = minBlocks.times(2.5); // TODO: magic number: 10min
+					var maxMinutes = maxBlocks.times(2.5); // TODO: magic number: 10 min
 
 					if (maxMinutes < 60) {
 						if (`${minMinutes.toDP(1)}` == `${maxMinutes.toDP(1)}`) {
