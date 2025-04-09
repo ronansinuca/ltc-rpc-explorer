@@ -100,7 +100,18 @@ function getPeerInfo() {
 }
 
 function getBlockTemplate() {
-	return getRpcDataWithParams({method:"getblocktemplate", parameters:[{"rules": ["mweb", "segwit"]}]});
+    return getRpcDataWithParams({method: "getblocktemplate", parameters: [{"rules": ["mweb", "segwit"]}]})
+        .then(blockTemplate => {
+            // Filter out MWEB transactions with a fee of 0 to make the next block prediction work
+            if (Array.isArray(blockTemplate.transactions)) {
+                blockTemplate.transactions = blockTemplate.transactions.filter(tx => tx.fee !== 0);
+            }
+            return blockTemplate;
+        })
+        .catch(error => {
+            console.error("Error fetching block template:", error);
+            return null;
+        });
 }
 
 function getAllMempoolTxids() {
