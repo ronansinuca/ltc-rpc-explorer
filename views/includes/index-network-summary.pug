@@ -275,8 +275,8 @@ if (exchangeRates)
 			- const blockCount = new Decimal(mempoolInfo.bytes).dividedBy(coinConfig.maxBlockSize)
 			- const thresholds_blockCount = {warning: 10, danger: 20}
 			- const colorClass_blockCount = (blockCount > thresholds_blockCount.danger) ? "text-danger" : (blockCount > thresholds_blockCount.warning ? "text-warning" : "text-success");
-			- const thresholds_totalFees = {warning: 1, danger: 5}
-			- const colorClass_totalFees = (mempoolInfo.total_fee > thresholds_totalFees.danger) ? "text-danger" : (mempoolInfo.total_fee > thresholds_totalFees.warning ? "text-warning" : "text-success");
+			//- const thresholds_totalFees = {warning: 1, danger: 5}
+			//- const colorClass_totalFees = (mempoolInfo.total_fee > thresholds_totalFees.danger) ? "text-danger" : (mempoolInfo.total_fee > thresholds_totalFees.warning ? "text-warning" : "text-success");
 			
 			+summaryItem("Mempool", "The number of unconfirmed transactions in your node's mempool, and the number of blocks needed to confirm those transactions", null, null, "icon:bi-hourglass-split", "./mempool-summary", "View mempool summary details")
 				
@@ -292,7 +292,7 @@ if (exchangeRates)
 						span.text-tiny.text-muted.ms-1
 							i.bi-box
 
-				span.mx-2.text-muted /
+				//span.mx-2.text-muted /
 
 				span.small
 					-
@@ -317,12 +317,12 @@ if (exchangeRates)
 							// Amount followed by minimized currency name (LTC or lit) with a non-breaking space in-between
 							return `${val}&nbsp;<span class='text-tiny'>${currencyType.name}</span>`
 						}
-					- const warningFees = formatFees(thresholds_totalFees.warning)
-					- const dangerFees = formatFees(thresholds_totalFees.danger)
-					span.border-dotted(title=`<b>Unconfirmed Transactions' total fees</b><br/><span class='text-success'>Low (N ≤ ${warningFees})</span><br/><span class='text-warning'>High (${warningFees} < N ≤ ${dangerFees})</span><br/><span class='text-danger'>Very High (N > ${dangerFees})</span>`, data-bs-toggle="tooltip", data-bs-html="true") &Sigma;
+					//- const warningFees = formatFees(thresholds_totalFees.warning)
+					//- const dangerFees = formatFees(thresholds_totalFees.danger)
+					//span.border-dotted(title=`<b>Unconfirmed Transactions' total fees</b><br/><span class='text-success'>Low (N ≤ ${warningFees})</span><br/><span class='text-warning'>High (${warningFees} < N ≤ ${dangerFees})</span><br/><span class='text-danger'>Very High (N > ${dangerFees})</span>`, data-bs-toggle="tooltip", data-bs-html="true") &Sigma;
 					// Don't embed this span inside previous one to avoid collision of their tooltips
-					span.ms-1(class=colorClass_totalFees)
-						+valueDisplay(mempoolInfo.total_fee, {hideLessSignificantDigits:true})
+					//span.ms-1(class=colorClass_totalFees)
+					//	+valueDisplay(mempoolInfo.total_fee, {hideLessSignificantDigits:true})
 
 		if (mempoolInfo)
 			+summaryRow

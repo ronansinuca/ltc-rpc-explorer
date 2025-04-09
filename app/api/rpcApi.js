@@ -108,10 +108,6 @@ function getBlockTemplate() {
             }
             return blockTemplate;
         })
-        .catch(error => {
-            console.error("Error fetching block template:", error);
-            return null;
-        });
 }
 
 function getAllMempoolTxids() {
