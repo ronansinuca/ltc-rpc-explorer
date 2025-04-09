@@ -2,7 +2,7 @@
 
 ## Self-Hosted Litecoin explorer for everyone running [Litecoin Core](https://github.com/litecoin-project/litecoin).
 
-<!--[![npm version][npm-ver-img]][npm-ver-url] [![NPM downloads][npm-dl-alltime-img]][npm-dl-url]-->
+[![npm version][npm-ver-img]][npm-ver-url] [![NPM downloads][npm-dl-alltime-img]][npm-dl-url]
 
 
 ---
@@ -135,8 +135,14 @@ This will cause users to be redirected to your login page if needed.
 
 ## Run via Docker
 
+### Option 1: build the image locally
 1. `docker build -t ltc-rpc-explorer .`
 2. `docker run -it -p 3003:3003 -e LTCEXP_HOST=0.0.0.0 ltc-rpc-explorer`
+
+
+### Option 2: Pull and run a prebuilt image
+1. `docker pull techtoshi/ltc-rpc-explorer`
+2. `docker run -it -p 3003:3003 -e LTCEXP_HOST=0.0.0.0 techtoshi/ltc-rpc-explorer`
 
 
 ## Reverse proxy with HTTPS
@@ -152,14 +158,12 @@ Donate with LTC
 
 LXigMwv7ATnPWqtC6iCQqcthnVSeyidcy4 
 
-<!--
-[npm-ver-img]: https://img.shields.io/npm/v/btc-rpc-explorer.svg?style=flat
-[npm-ver-url]: https://www.npmjs.com/package/btc-rpc-explorer
-[npm-dl-img]: http://img.shields.io/npm/dm/btc-rpc-explorer.svg?style=flat
-[npm-dl-url]: https://npmcharts.com/compare/btc-rpc-explorer?minimal=true
+[npm-ver-img]: https://img.shields.io/npm/v/ltc-rpc-explorer.svg?style=flat
+[npm-ver-url]: https://www.npmjs.com/package/ltc-rpc-explorer
+[npm-dl-img]: http://img.shields.io/npm/dm/ltc-rpc-explorer.svg?style=flat
+[npm-dl-url]: https://npmcharts.com/compare/ltc-rpc-explorer?minimal=true
 
-[npm-dl-weekly-img]: https://badgen.net/npm/dw/btc-rpc-explorer?icon=npm&cache=300
-[npm-dl-monthly-img]: https://badgen.net/npm/dm/btc-rpc-explorer?icon=npm&cache=300
-[npm-dl-yearly-img]: https://badgen.net/npm/dy/btc-rpc-explorer?icon=npm&cache=300
-[npm-dl-alltime-img]: https://badgen.net/npm/dt/btc-rpc-explorer?icon=npm&cache=300&label=total%20downloads
--->
+[npm-dl-weekly-img]: https://badgen.net/npm/dw/ltc-rpc-explorer?icon=npm&cache=300
+[npm-dl-monthly-img]: https://badgen.net/npm/dm/ltc-rpc-explorer?icon=npm&cache=300
+[npm-dl-yearly-img]: https://badgen.net/npm/dy/ltc-rpc-explorer?icon=npm&cache=300
+[npm-dl-alltime-img]: https://badgen.net/npm/dt/ltc-rpc-explorer?icon=npm&cache=300&label=total%20downloads
