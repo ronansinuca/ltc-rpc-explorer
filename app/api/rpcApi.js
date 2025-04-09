@@ -147,13 +147,8 @@ function getBlockStatsByHeight(height) {
 	}
 }
 
-function getUtxoSetSummary(useCoinStatsIndexIfAvailable=true) {
-	if (useCoinStatsIndexIfAvailable && global.getindexinfo && global.getindexinfo.coinstatsindex) {
-		return getRpcDataWithParams({method:"gettxoutsetinfo", parameters:["muhash"]});
-
-	} else {
-		return getRpcData("gettxoutsetinfo");
-	}
+function getUtxoSetSummary() {
+	return getRpcData("gettxoutsetinfo");
 }
 
 function getRawMempool() {

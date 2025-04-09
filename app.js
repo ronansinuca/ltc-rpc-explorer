@@ -663,7 +663,7 @@ async function assessTxindexAvailability() {
 
 async function refreshUtxoSetSummary() {
 	if (config.slowDeviceMode) {
-		if (!global.getindexinfo || !global.getindexinfo.coinstatsindex) {
+		if (!global.getindexinfo) {
 			global.utxoSetSummary = null;
 			global.utxoSetSummaryPending = false;
 

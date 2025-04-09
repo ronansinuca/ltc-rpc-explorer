@@ -287,7 +287,7 @@ function getBlockStatsByHeight(height) {
 
 const utxoSetFileCache = utils.fileCache(config.filesystemCacheDir, `utxo-set`);
 
-function getUtxoSetSummary(useCoinStatsIndexIfAvailable=true, useCacheIfAvailable=true) {
+function getUtxoSetSummary(useCacheIfAvailable = true) {
 	return tryCacheThenRpcApi(miscCache, "getUtxoSetSummary", FIFTEEN_MIN, async () => {
 		let utxoSetSummary = utxoSetFileCache.tryLoadJson();
 
@@ -295,21 +295,13 @@ function getUtxoSetSummary(useCoinStatsIndexIfAvailable=true, useCacheIfAvailabl
 			return utxoSetSummary;
 
 		} else {
-			utxoSetSummary = await rpcApi.getUtxoSetSummary(useCoinStatsIndexIfAvailable);
+			utxoSetSummary = await rpcApi.getUtxoSetSummary();
 
 			if (utxoSetSummary && utxoSetSummary.total_amount) {
-				if (useCoinStatsIndexIfAvailable && global.getindexinfo && global.getindexinfo.coinstatsindex) {
-					utxoSetSummary.usingCoinStatsIndex = true;
-
-				} else {
-					utxoSetSummary.usingCoinStatsIndex = false;
-				}
-
 				utxoSetSummary.lastUpdated = Date.now();
 
 				try {
 					utxoSetFileCache.writeJson(utxoSetSummary);
-					
 				} catch (e) {
 					utils.logError("h32uheifehues", e);
 				}
