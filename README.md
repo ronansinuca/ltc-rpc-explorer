@@ -156,7 +156,7 @@ If you get value from this project, please consider supporting my work with a do
 
 Donate with LTC
 
-LXigMwv7ATnPWqtC6iCQqcthnVSeyidcy4 
+ltc1q49qxt7zllrzzejvu8sy344vtnfw4a5yk6rjndk 
 
 [npm-ver-img]: https://img.shields.io/npm/v/ltc-rpc-explorer.svg?style=flat
 [npm-ver-url]: https://www.npmjs.com/package/ltc-rpc-explorer
