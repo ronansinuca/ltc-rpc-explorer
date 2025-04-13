@@ -153,7 +153,7 @@ module.exports = {
 	},
 	
 	genesisBlockHashesByNetwork:{
-		"main":	"12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2",
+		"main":	"f0abf0a9cc2db80e1cedbaa00c8234cf5aabf97c80c1bb1dffc88607e2674c3b",
 		"test":	"4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0",
 		"regtest": "530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9",
 	},

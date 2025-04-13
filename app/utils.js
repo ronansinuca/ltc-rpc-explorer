@@ -1104,7 +1104,7 @@ function outputTypeName(outputType) {
 }
 
 function asHash(value) {
-	return value.replace(/[^a-f0-9]/gi, "");
+	return value.replace(/[^xa-f0-9]/gi, "");
 }
 
 function asHashOrHeight(value) {
