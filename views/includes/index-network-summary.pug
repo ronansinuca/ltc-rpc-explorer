@@ -268,7 +268,7 @@ if (exchangeRates)
 			- smartFeeEstimateStrings.push(smartFeeEstimates[144]);
 			- smartFeeEstimateTimes.push('day');
 
-	+summaryRow((mempoolInfo == undefined ? 0 : 1) + (smartFeeEstimateStrings.length > 0 ? 1 : 0))
+	+summaryRow((mempoolInfo == undefined ? 0 : 1) + (smartFeeEstimateStrings.length > 0 ? 1 : 0) + ((mempoolInfo) ? 1 : 0))
 		if (mempoolInfo)
 			- const thresholds_txCount = {warning: 7000, danger: 11000}
 			- const colorClass_txCount = (mempoolInfo.size > thresholds_txCount.danger) ? "text-danger" : (mempoolInfo.size > thresholds_txCount.warning ? "text-warning" : "text-success")
