@@ -656,34 +656,27 @@ router.get("/xyzpub/:extendedPubkey", asyncHandler(async (req, res, next) => {
 		res.locals.pubkeyTypeDesc = null;
 		res.locals.keyType = extendedPubkey.substring(0, 4);
 
-		// if xpub/ypub/zpub convert to address under path m/0/0
-		if (extendedPubkey.match(/^(xpub|tpub).*$/)) {
+		// if xpub/tpub or Ltub convert to address under path m/0/0
+		if (extendedPubkey.match(/^(xpub|tpub|Ltub).*$/)) {
 			res.locals.pubkeyType = "P2PKH";
 			res.locals.pubkeyTypeDesc = "Pay to Public Key Hash";
 			res.locals.bip32Path = "m/44'/0'";
 
-			
 			let xpub = extendedPubkey;
-			if (!extendedPubkey.startsWith(xpub_tpub)) {
+
+			// Handle Ltub and xpub/tpub
+			if (extendedPubkey.startsWith('Ltub')) {
+				xpub = utils.xpubChangeVersionBytes(extendedPubkey, xpub_tpub);
+			} else if (!extendedPubkey.startsWith(xpub_tpub)) {
 				xpub = utils.xpubChangeVersionBytes(extendedPubkey, xpub_tpub);
 			}
 
-			res.locals.receiveAddresses = utils.bip32Addresses(extendedPubkey, "p2pkh", 0, limit, offset);
-			res.locals.changeAddresses = utils.bip32Addresses(extendedPubkey, "p2pkh", 1, limit, offset);
-
-			if (!extendedPubkey.startsWith(xpub_tpub)) {
-				res.locals.relatedKeys.push({
-					keyType: xpub_tpub,
-					key: utils.xpubChangeVersionBytes(xpub, xpub_tpub),
-					bip32Path: "m/44'/0'",
-					outputType: "P2PKH",
-					firstAddresses: utils.bip32Addresses(xpub, "p2pkh", 0, 3, 0)
-				});
-			}
+			res.locals.receiveAddresses = utils.bip32Addresses(xpub, "p2pkh", 0, limit, offset);
+			res.locals.changeAddresses = utils.bip32Addresses(xpub, "p2pkh", 1, limit, offset);
 
 			res.locals.relatedKeys.push({
 				keyType: xpub_tpub,
-				key: extendedPubkey,
+				key: xpub,
 				bip32Path: "m/44'/0'",
 				outputType: "P2PKH",
 				firstAddresses: utils.bip32Addresses(xpub, "p2pkh", 0, 3, 0)

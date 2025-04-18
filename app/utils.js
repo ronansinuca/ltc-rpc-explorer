@@ -1305,7 +1305,7 @@ function getVoutAddresses(vout) {
 }
 
 const xpubPrefixes = new Map([
-	['xpub', '0488b21e'],
+	['xpub', '019da462'],
 	['ypub', '049d7cb2'],
 	['Ypub', '0295b43f'],
 	['zpub', '04b24746'],
@@ -1315,20 +1315,48 @@ const xpubPrefixes = new Map([
 	['Upub', '024289ef'],
 	['vpub', '045f1cf6'],
 	['Vpub', '02575483'],
+
+	// Litecoin (for compatibility with xpub/ypub/zpub format)
+	['Ltub', '019da462'],
+	['Mtub', '049d7cb2'],
+	['Ntub', '04b24746'],
 ]);
 
-const bip32TestnetNetwork = {
-	messagePrefix: '\x19Litecoin Signed Message:\n',
-	bech32: 'tltc',
-	bip32: {
-		public: 0x0436f6e1,
-		private: 0x0436ef7d,
-	},
-	pubKeyHash: 0x6f,
-	scriptHash: 0x3a,
-	wif: 0xef,
-};
+function detectNetworkFromExtPubkey(xpub) {
+	const prefix = xpub.substring(0, 4);
 
+	const networkMap = {
+		'xpub': { bech32: 'bc', bip32: { public: 0x0488b21e, private: 0x0488ade4 }, pubKeyHash: 0x00, scriptHash: 0x05, wif: 0x80 },
+		'ypub': { bech32: 'bc', bip32: { public: 0x049d7cb2, private: 0x049d7878 }, pubKeyHash: 0x00, scriptHash: 0x05, wif: 0x80 },
+		'zpub': { bech32: 'bc', bip32: { public: 0x04b24746, private: 0x04b2430c }, pubKeyHash: 0x00, scriptHash: 0x05, wif: 0x80 },
+
+		// Litecoin
+		'Ltub': { 
+			messagePrefix: '\x19Litecoin Signed Message:\n',
+			bech32: 'ltc',
+			bip32: { public: 0x019da462, private: 0x019d9cfe },
+			pubKeyHash: 0x30,
+			scriptHash: 0x32,
+			wif: 0xb0,
+		},
+		'Mtub': { 
+			messagePrefix: '\x19Litecoin Testnet Signed Message:\n',
+			bech32: 'tltc',
+			bip32: { public: 0x0436f6e1, private: 0x0436ef7d },
+			pubKeyHash: 0x6f,
+			scriptHash: 0x3a,
+			wif: 0xef,
+		},
+		'zpub': { bech32: 'ltc', bip32: { public: 0x04b24746, private: 0x04b2430c }, pubKeyHash: 0x30, scriptHash: 0x32, wif: 0xb0 },
+	};
+
+	if (!networkMap[prefix]) {
+		throw new Error(`Unsupported or unknown prefix: ${prefix}`);
+	}
+
+	const base = networkMap[prefix];
+	return base;
+}
 
 // ref: https://github.com/ExodusMovement/xpub-converter/blob/master/src/index.js
 function xpubChangeVersionBytes(xpub, targetFormat) {
@@ -1347,11 +1375,8 @@ function xpubChangeVersionBytes(xpub, targetFormat) {
 }
 
 // HD wallet addresses
-function bip32Addresses(extPubkey, addressType, account, limit=10, offset=0) {
-	let network = null;
-	if (!extPubkey.match(/^(xpub|ypub|zpub|Ypub|Zpub).*$/)) {
-		network = bip32TestnetNetwork;
-	}
+function bip32Addresses(extPubkey, addressType, account, limit = 10, offset = 0) {
+	const network = detectNetworkFromExtPubkey(extPubkey);
 
 	let bip32object = bip32.fromBase58(extPubkey, network);
 
@@ -1360,17 +1385,16 @@ function bip32Addresses(extPubkey, addressType, account, limit=10, offset=0) {
 		let bip32Child = bip32object.derive(account).derive(i);
 		let publicKey = bip32Child.publicKey;
 
-		if (addressType == "p2pkh") {
-			addresses.push(bitcoinjs.payments.p2pkh({ pubkey: publicKey, network: network }).address);
-
-		} else if (addressType == "p2sh(p2wpkh)") {
-			addresses.push(bitcoinjs.payments.p2sh({ redeem: bitcoinjs.payments.p2wpkh({ pubkey: publicKey, network: network })}).address);
-
-		} else if (addressType == "p2wpkh") {
-			addresses.push(bitcoinjs.payments.p2wpkh({ pubkey: publicKey, network: network }).address);
-
+		if (addressType === "p2pkh") {
+			addresses.push(bitcoinjs.payments.p2pkh({ pubkey: publicKey, network }).address);
+		} else if (addressType === "p2sh(p2wpkh)") {
+			addresses.push(bitcoinjs.payments.p2sh({
+				redeem: bitcoinjs.payments.p2wpkh({ pubkey: publicKey, network })
+			}).address);
+		} else if (addressType === "p2wpkh") {
+			addresses.push(bitcoinjs.payments.p2wpkh({ pubkey: publicKey, network }).address);
 		} else {
-			throw new Error(`Unknown address type: "${addressType}" (should be one of ["p2pkh", "p2sh(p2wpkh)", "p2wpkh"])`)
+			throw new Error(`Unknown address type: "${addressType}" (should be one of ["p2pkh", "p2sh(p2wpkh)", "p2wpkh"])`);
 		}
 	}
 
