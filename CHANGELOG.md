@@ -1,10 +1,8 @@
 ##### v3.6.0-ltc
-###### Unreleased
-
-* Updated dependencies
-* Fix mempool-summary bug which can cause the page to crash
-* Port xpub search to Litecoin for HD wallets
-
+###### 2025-04-19
+* Update logos and favicons for all networks
+* Added support for Litecoin xpub/Ltub HD wallet search
+* Updated support for external address APIs
 
 ##### v3.5.0-ltc
 ###### 2025-04-09
