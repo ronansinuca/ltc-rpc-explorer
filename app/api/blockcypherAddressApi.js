@@ -6,11 +6,6 @@ const utils = require("./../utils.js");
 
 function getAddressDetails(address, scriptPubkey, sort, limit, offset) {
 	return new Promise(async (resolve, reject) => {
-		if (address.startsWith("bc1")) {
-			reject({userText:"blockcypher.com API does not support bc1 (native Segwit) addresses"});
-
-			return;
-		}
 
 		var limitOffset = limit + offset;
 		var mainnetUrl = `https://api.blockcypher.com/v1/ltc/main/addrs/${address}?limit=${limitOffset}`;
