@@ -1,12 +1,12 @@
 {
 	"name": "ltc-rpc-explorer",
-	"version": "3.5.0-ltc",
+	"version": "3.6.0-ltc",
 	"lockfileVersion": 3,
 	"requires": true,
 	"packages": {
 		"": {
 			"name": "ltc-rpc-explorer",
-			"version": "3.5.0-ltc",
+			"version": "3.6.0-ltc",
 			"license": "MIT",
 			"dependencies": {
 				"@janoside/app-utils": "github:janoside/app-utils#ba4c23d3f",
