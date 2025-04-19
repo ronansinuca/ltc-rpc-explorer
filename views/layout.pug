@@ -92,21 +92,21 @@ html(lang="en")
 							
 						
 						ul.navbar-nav
-							if (config.demoSite && homepage)
-								li.nav-item.dropdown.me-0.me-md-2.mt-2.mt-md-0.text-center.text-md-start
-									a.nav-link.dropdown-toggle.bg-header-footer-highlight.rounded(href="javascript:void(0)", role="button", data-bs-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
-										img.align-text-top.me-1(src=assetUrl(coinConfig.coinIconUrlsByNetwork[activeBlockchain]), style="width: 20px;")
+							//if (config.demoSite && homepage)
+							//	li.nav-item.dropdown.me-0.me-md-2.mt-2.mt-md-0.text-center.text-md-start
+							//		a.nav-link.dropdown-toggle.bg-header-footer-highlight.rounded(href="javascript:void(0)", role="button", data-bs-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
+							//			img.align-text-top.me-1(src=assetUrl(coinConfig.coinIconUrlsByNetwork[activeBlockchain]), style="width: 20px;")
 
-									div.dropdown-menu.dropdown-menu-end.shadow(aria-label="Demo Sites")
-										span.dropdown-header Public Demo Sites
+							//		div.dropdown-menu.dropdown-menu-end.shadow(aria-label="Demo Sites")
+							//			span.dropdown-header Public Demo Sites
 
-										- var demoSites = ["main", "test"];
+							//			- var demoSites = ["main", "test"];
 										
-										each demoSite in demoSites
-											a.dropdown-item(href=coinConfig.demoSiteUrlsByNetwork[demoSite])
-												img.align-text-top.me-2(src=assetUrl(coinConfig.coinIconUrlsByNetwork[demoSite]), style="width: 20px;")
+							//			each demoSite in demoSites
+							//				a.dropdown-item(href=coinConfig.demoSiteUrlsByNetwork[demoSite])
+							//					img.align-text-top.me-2(src=assetUrl(coinConfig.coinIconUrlsByNetwork[demoSite]), style="width: 20px;")
 												
-												| #{coinConfig.siteTitlesByNetwork[demoSite].replace("Explorer", "").replace("Litecoin", "Mainnet")}
+							//					| #{coinConfig.siteTitlesByNetwork[demoSite].replace("Explorer", "").replace("Litecoin", "Mainnet")}
 
 							if (config.siteTools)
 								li.nav-item.dropdown.me-0.me-md-2.mt-2.mt-md-0.text-center.text-md-start
