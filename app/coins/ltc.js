@@ -105,7 +105,7 @@ module.exports = {
 		"regtest": new Decimal(84000000)
 	},
 	targetBlockTimeSeconds: 150,
-	targetBlockTimeMinutes: 10,
+	targetBlockTimeMinutes: 2.5,
 	currencyUnits:currencyUnits,
 	currencyUnitsByName:{"LTC":currencyUnits[0], "mLTC":currencyUnits[1], "bits":currencyUnits[2], "lit":currencyUnits[3]},
 	baseCurrencyUnit:currencyUnits[3],
