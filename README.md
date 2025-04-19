@@ -18,7 +18,6 @@ This explorer was originally developed by [janoside](https://github.com/janoside
 
 Whatever reasons you may have for running a full node (trustlessness, technical curiosity, supporting the network, etc) it's valuable to appreciate the *fullness* of your node. With this explorer, you can explore not just the blockchain database, but also explore all of the functional capabilities of your own node.
 
-Please note that this is still in active development to ensure full compatibility with Litecoin, so there may be bugs or areas that need updates. However, the explorer is functional and can be used with Litecoin in its current state. Any and all contributions are much appreciated.
 
 Live demo:
 
