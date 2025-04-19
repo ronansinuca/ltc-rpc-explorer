@@ -152,11 +152,7 @@ See [instructions here](docs/nginx-reverse-proxy.md) for using nginx+certbot (le
 
 # Support
 
-If you get value from this project, please consider supporting my work with a donation. All donations are truly appreciated.
-
-Donate with LTC
-
-ltc1q49qxt7zllrzzejvu8sy344vtnfw4a5yk6rjndk 
+If you get value from this project, please consider supporting the [Litecoin Foundation](https://litecoin.com/donate).
 
 [npm-ver-img]: https://img.shields.io/npm/v/ltc-rpc-explorer.svg?style=flat
 [npm-ver-url]: https://www.npmjs.com/package/ltc-rpc-explorer
