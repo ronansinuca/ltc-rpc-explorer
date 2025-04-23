@@ -68,7 +68,7 @@ html(lang="en")
 
 				if (false && config.demoSite)
 					- var networkNameMap = {"main": "Mainnet", "test": "Testnet"};
-					span.badge.bg-primary(title=`This is a public demo, but this tool is designed to be installed and run by all Bitcoiners...<br/><i>Don't Trust, Verify</i>!`, data-bs-toggle="tooltip", data-bs-html="true")
+					span.badge.bg-primary(title=`This is a public demo, but this tool is designed to be installed and run by all Litecoiners...<br/><i>Don't Trust, Verify</i>!`, data-bs-toggle="tooltip", data-bs-html="true")
 						span Public Demo
 						
 				button.navbar-toggler.navbar-toggler-end(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav", aria-label="collapse navigation")
@@ -92,21 +92,21 @@ html(lang="en")
 							
 						
 						ul.navbar-nav
-							if (config.demoSite && homepage)
-								li.nav-item.dropdown.me-0.me-md-2.mt-2.mt-md-0.text-center.text-md-start
-									a.nav-link.dropdown-toggle.bg-header-footer-highlight.rounded(href="javascript:void(0)", role="button", data-bs-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
-										img.align-text-top.me-1(src=assetUrl(coinConfig.coinIconUrlsByNetwork[activeBlockchain]), style="width: 20px;")
+							//if (config.demoSite && homepage)
+							//	li.nav-item.dropdown.me-0.me-md-2.mt-2.mt-md-0.text-center.text-md-start
+							//		a.nav-link.dropdown-toggle.bg-header-footer-highlight.rounded(href="javascript:void(0)", role="button", data-bs-toggle="dropdown", aria-haspopup="true", aria-expanded="false")
+							//			img.align-text-top.me-1(src=assetUrl(coinConfig.coinIconUrlsByNetwork[activeBlockchain]), style="width: 20px;")
 
-									div.dropdown-menu.dropdown-menu-end.shadow(aria-label="Demo Sites")
-										span.dropdown-header Public Demo Sites
+							//		div.dropdown-menu.dropdown-menu-end.shadow(aria-label="Demo Sites")
+							//			span.dropdown-header Public Demo Sites
 
-										- var demoSites = ["main", "test"];
+							//			- var demoSites = ["main", "test"];
 										
-										each demoSite in demoSites
-											a.dropdown-item(href=coinConfig.demoSiteUrlsByNetwork[demoSite])
-												img.align-text-top.me-2(src=assetUrl(coinConfig.coinIconUrlsByNetwork[demoSite]), style="width: 20px;")
+							//			each demoSite in demoSites
+							//				a.dropdown-item(href=coinConfig.demoSiteUrlsByNetwork[demoSite])
+							//					img.align-text-top.me-2(src=assetUrl(coinConfig.coinIconUrlsByNetwork[demoSite]), style="width: 20px;")
 												
-												| #{coinConfig.siteTitlesByNetwork[demoSite].replace("Explorer", "").replace("Litecoin", "Mainnet")}
+							//					| #{coinConfig.siteTitlesByNetwork[demoSite].replace("Explorer", "").replace("Litecoin", "Mainnet")}
 
 							if (config.siteTools)
 								li.nav-item.dropdown.me-0.me-md-2.mt-2.mt-md-0.text-center.text-md-start
@@ -295,23 +295,23 @@ html(lang="en")
 
 									br
 
-									a.footer-link(href="http://btcexpz7xlwrqknqw6p3bok6shf73qtkd6zxct4x4qta2ktvh7ntprad.onion", title="Tor v3 Hidden Service", data-bs-toggle="tooltip") btcexp….onion
+									a.footer-link(href="http://ltcexp7hhqr7w7neyfutw7bvbhpxwfh7de4dba6job2vsmo6lcyarvyd.onion", title="Tor v3 Hidden Service", data-bs-toggle="tooltip") ltcexp….onion
 									span.ms-1 (tor v3)
-									+copyTextButton("http://btcexpz7xlwrqknqw6p3bok6shf73qtkd6zxct4x4qta2ktvh7ntprad.onion")
+									+copyTextButton("http://ltcexp7hhqr7w7neyfutw7bvbhpxwfh7de4dba6job2vsmo6lcyarvyd.onion")
 									
-									div.mt-2
-										- var demoSites = ["main", "test"];
+									//div.mt-2
+									//	- var demoSites = ["main", "test"];
 										
-										each demoSite in demoSites
-											a.me-2(href=coinConfig.demoSiteUrlsByNetwork[demoSite], title=coinConfig.siteTitlesByNetwork[demoSite], data-bs-toggle="tooltip")
-												img(src=assetUrl(coinConfig.logoUrlsByNetwork[demoSite]), alt=coinConfig.siteTitlesByNetwork[demoSite], style="width: 40px; height: 40px;")
+									//	each demoSite in demoSites
+									//		a.me-2(href=coinConfig.demoSiteUrlsByNetwork[demoSite], title=coinConfig.siteTitlesByNetwork[demoSite], data-bs-toggle="tooltip")
+									//			img(src=assetUrl(coinConfig.logoUrlsByNetwork[demoSite]), alt=coinConfig.siteTitlesByNetwork[demoSite], style="width: 40px; height: 40px;")
 
 					.col-lg-3
 						.mb-4
 							h6 Donate
 
 							.ms-2
-								span LXigMwv7ATnPWqtC6iCQqcthnVSeyidcy4
+								a.footer-link(href="https://litecoin.com/donate") Litecoin Foundation
 
 
 

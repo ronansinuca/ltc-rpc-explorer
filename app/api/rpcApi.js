@@ -100,7 +100,14 @@ function getPeerInfo() {
 }
 
 function getBlockTemplate() {
-	return getRpcDataWithParams({method:"getblocktemplate", parameters:[{"rules": ["mweb", "segwit"]}]});
+    return getRpcDataWithParams({method: "getblocktemplate", parameters: [{"rules": ["mweb", "segwit"]}]})
+        .then(blockTemplate => {
+            // Filter out MWEB transactions with a fee of 0 to make the next block prediction work
+            if (Array.isArray(blockTemplate.transactions)) {
+                blockTemplate.transactions = blockTemplate.transactions.filter(tx => tx.fee !== 0);
+            }
+            return blockTemplate;
+        })
 }
 
 function getAllMempoolTxids() {
@@ -147,13 +154,8 @@ function getBlockStatsByHeight(height) {
 	}
 }
 
-function getUtxoSetSummary(useCoinStatsIndexIfAvailable=true) {
-	if (useCoinStatsIndexIfAvailable && global.getindexinfo && global.getindexinfo.coinstatsindex) {
-		return getRpcDataWithParams({method:"gettxoutsetinfo", parameters:["muhash"]});
-
-	} else {
-		return getRpcData("gettxoutsetinfo");
-	}
+function getUtxoSetSummary() {
+	return getRpcData("gettxoutsetinfo");
 }
 
 function getRawMempool() {

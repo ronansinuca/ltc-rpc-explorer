@@ -1070,6 +1070,7 @@ function outputTypeAbbreviation(outputType) {
 		"witness_v0_keyhash": "P2WPKH",
 		"witness_v0_scripthash": "P2WSH",
 		"witness_v1_taproot": "P2TR",
+		"mweb": "MWEB",
 		"nonstandard": "nonstandard",
 		"nulldata": "nulldata"
 	};
@@ -1091,6 +1092,7 @@ function outputTypeName(outputType) {
 		"witness_v0_keyhash": "Witness, v0 Key Hash",
 		"witness_v0_scripthash": "Witness, v0 Script Hash",
 		"witness_v1_taproot": "Witness, v1 Taproot",
+		"mweb": "MWEB Confidential Transaction",
 		"nonstandard": "Non-Standard",
 		"nulldata": "Null Data"
 	};
@@ -1303,76 +1305,118 @@ function getVoutAddresses(vout) {
 }
 
 const xpubPrefixes = new Map([
-	['xpub', '0488b21e'],
-	['ypub', '049d7cb2'],
-	['Ypub', '0295b43f'],
-	['zpub', '04b24746'],
-	['Zpub', '02aa7ed3'],
-	['tpub', '0436f6e1'],
-	['upub', '044a5262'],
-	['Upub', '024289ef'],
-	['vpub', '045f1cf6'],
-	['Vpub', '02575483'],
+    ['xpub', '0488b21e'],
+    ['ypub', '049d7cb2'],
+    ['zpub', '04b24746'],
+
+    // Litecoin
+    ['Ltub', '019da462'],
+    ['Mtub', '01b26ef6'],
+    ['Ntub', '02aa7ed3']
 ]);
 
-const bip32TestnetNetwork = {
-	messagePrefix: '\x19Litecoin Signed Message:\n',
-	bech32: 'tltc',
-	bip32: {
-		public: 0x0436f6e1,
-		private: 0x0436ef7d,
-	},
-	pubKeyHash: 0x6f,
-	scriptHash: 0x3a,
-	wif: 0xef,
-};
+// Prefixes: format → version bytes
+const bitcoinToLitecoinPrefixes = new Map([
+    ['xpub', '019da462'], // Ltub
+    ['ypub', '049d7cb2'], // Mtub
+    ['zpub', '04b24746'], // Ntub
+]);
 
+function detectNetworkFromExtPubkey(xpub) {
+    const prefix = xpub.substring(0, 4);
 
-// ref: https://github.com/ExodusMovement/xpub-converter/blob/master/src/index.js
-function xpubChangeVersionBytes(xpub, targetFormat) {
-	if (!xpubPrefixes.has(targetFormat)) {
-		throw new Error("Invalid target version");
-	}
+    const allLitecoinPrefixes = new Map([
+        ['xpub', '019da462'],
+        ['ypub', '01b26ef6'],
+        ['zpub', '02aa7ed3'],
+        ['Ltub', '019da462'],
+        ['Mtub', '01b26ef6'],
+        ['Ntub', '02aa7ed3']
+    ]);
 
-	// trim whitespace
-	xpub = xpub.trim();
+    if (!allLitecoinPrefixes.has(prefix)) {
+        throw new Error(`Unsupported or unknown prefix: ${prefix}`);
+    }
 
-	let data = bs58check.default.decode(xpub);
-	data = data.slice(4);
-	data = Buffer.concat([Buffer.from(xpubPrefixes.get(targetFormat), 'hex'), data]);
-
-	return bs58check.default.encode(data);
+    return {
+        messagePrefix: '\x19Litecoin Signed Message:\n',
+        bech32: 'ltc',
+        bip32: {
+            public: parseInt(allLitecoinPrefixes.get(prefix), 16),
+            private: 0x019d9cfe
+        },
+        pubKeyHash: 0x30,
+        scriptHash: 0x32,
+        wif: 0xb0
+    };
 }
 
-// HD wallet addresses
-function bip32Addresses(extPubkey, addressType, account, limit=10, offset=0) {
-	let network = null;
-	if (!extPubkey.match(/^(xpub|ypub|zpub|Ypub|Zpub).*$/)) {
-		network = bip32TestnetNetwork;
-	}
+function convertToLitecoinXpub(xpub) {
+    const prefix = xpub.substring(0, 4);
+    
+    if (!xpubPrefixes.has(prefix)) {
+        throw new Error("Unsupported network prefix");
+    }
 
-	let bip32object = bip32.fromBase58(extPubkey, network);
+    const decoded = bs58check.default.decode(xpub);
+    const stripped = decoded.slice(4);
 
-	let addresses = [];
-	for (let i = offset; i < (offset + limit); i++) {
-		let bip32Child = bip32object.derive(account).derive(i);
-		let publicKey = bip32Child.publicKey;
+    let targetPrefix;
+    if (prefix === 'xpub') targetPrefix = '019da462'; // Ltub
+    else if (prefix === 'ypub') targetPrefix = '01b26ef6'; // Mtub
+    else if (prefix === 'zpub') targetPrefix = '02aa7ed3'; // Ntub
+    else targetPrefix = xpubPrefixes.get(prefix);
 
-		if (addressType == "p2pkh") {
-			addresses.push(bitcoinjs.payments.p2pkh({ pubkey: publicKey, network: network }).address);
+    const ltcPrefix = Buffer.from(targetPrefix, 'hex');
+    const newData = Buffer.concat([ltcPrefix, stripped]);
 
-		} else if (addressType == "p2sh(p2wpkh)") {
-			addresses.push(bitcoinjs.payments.p2sh({ redeem: bitcoinjs.payments.p2wpkh({ pubkey: publicKey, network: network })}).address);
+    return bs58check.default.encode(newData);
+}
 
-		} else if (addressType == "p2wpkh") {
-			addresses.push(bitcoinjs.payments.p2wpkh({ pubkey: publicKey, network: network }).address);
+// Generate Litecoin addresses from an extended pubkey
+function bip32Addresses(extPubkey, addressType = "p2wpkh", account = 0, limit = 10, offset = 0) {
+    const litecoinNetwork = detectNetworkFromExtPubkey(extPubkey);
+    const converted = convertToLitecoinXpub(extPubkey);
 
-		} else {
-			throw new Error(`Unknown address type: "${addressType}" (should be one of ["p2pkh", "p2sh(p2wpkh)", "p2wpkh"])`)
-		}
-	}
+    const node = bip32.fromBase58(converted, litecoinNetwork);
+    const addresses = [];
 
-	return addresses;
+    for (let i = offset; i < offset + limit; i++) {
+        const child = node.derive(account).derive(i);
+        const pubkey = child.publicKey;
+
+        let address;
+        if (addressType === "p2pkh") {
+            address = bitcoinjs.payments.p2pkh({ pubkey, network: litecoinNetwork }).address;
+        } else if (addressType === "p2sh(p2wpkh)") {
+            address = bitcoinjs.payments.p2sh({
+                redeem: bitcoinjs.payments.p2wpkh({ pubkey, network: litecoinNetwork }),
+                network: litecoinNetwork
+            }).address;
+        } else if (addressType === "p2wpkh") {
+            address = bitcoinjs.payments.p2wpkh({ pubkey, network: litecoinNetwork }).address;
+        } else {
+            throw new Error(`Unsupported address type: ${addressType}`);
+        }
+
+        addresses.push(address);
+    }
+
+    return addresses;
+}
+
+// Change xpub version bytes to a Litecoin-compatible format
+function xpubChangeVersionBytes(xpub, targetFormat) {
+    if (!bitcoinToLitecoinPrefixes.has(targetFormat)) {
+        throw new Error("Invalid target version");
+    }
+
+    const decoded = bs58check.default.decode(xpub);
+    const stripped = decoded.slice(4);
+    const newPrefix = Buffer.from(bitcoinToLitecoinPrefixes.get(targetFormat), 'hex');
+    const newData = Buffer.concat([newPrefix, stripped]);
+
+    return bs58check.default.encode(newData);
 }
 
 function expressRequestToJson(req) {

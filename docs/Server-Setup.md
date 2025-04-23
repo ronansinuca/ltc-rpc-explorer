@@ -49,10 +49,10 @@ Edit /etc/tor/torrc
 
 1. Uncomment `ControlPort 9051`
 2. Uncomment `CookieAuthentication 1`
-3. If applicable, add Torv3 Hidden service credentials to `/var/lib/tor/btcexp...onion`
+3. If applicable, add Torv3 Hidden service credentials to `/var/lib/tor/ltcexp...onion`
     * chmod 700 for directory, owned by the same "tor" user as other files in that dir
-    * chmod 600 for the files in the "btcexp...onion" dir)
-5. Add `HiddenServiceDir /var/lib/tor/btcexp...onion/`
+    * chmod 600 for the files in the "ltcexp...onion" dir)
+5. Add `HiddenServiceDir /var/lib/tor/ltcexp...onion/`
 6. Add `HiddenServicePort 80 127.0.0.1:3000`
 
 

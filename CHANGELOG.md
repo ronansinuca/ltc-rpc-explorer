@@ -1,10 +1,16 @@
-##### v3.5.0
-###### Unreleased
+##### v3.6.0-ltc
+###### 2025-04-19
+* Update logos and favicons for all networks
+* Added support for Litecoin xpub/Ltub HD wallet search
+* Updated support for external address APIs
 
-* Tweak display of miner "notes" (disclaimer for Patoshi)
-* Fix for display of JSON-data content
-* Updated miner IDs (including removal of 3 probably false positives from the "Patoshi" list)
-* Updated dependencies
+##### v3.5.0-ltc
+###### 2025-04-09
+
+* Initial port of btc-rpc-explorer v3.4.0 to Litecoin
+
+
+---
 
 
 ##### v3.4.0
